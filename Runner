@@ -109,3 +109,142 @@ public class Runner
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.awt.*;
+import javax.swing.OverlayLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import javax.swing.Timer;
+import java.io.File;
+import javax.imageio.ImageIO;
+import java.util.*;
+
+/**
+ * Write a description of class Runner2 here.
+ * 
+ * @author (your name) 
+ * @version (a version number or a date)
+ */
+public class Runner
+{
+    private static final int FRAME_WIDTH = 3000;
+    private static final int FRAME_HEIGHT = 1000;
+    private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
+    private static int balloonCount = 0;
+
+    public static void main(String[] args)
+    {
+        //Creates the Frame and the Pane
+        JFrame frame = new JFrame();
+        JPanel pane = new JPanel();
+
+        //Creates the Balloon Spanwer, Spikes, and Bar
+        PlayerStatus player = new PlayerStatus();
+        SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
+        BalloonGUI balloon = new BalloonGUI();
+
+        LayoutManager overlay = new OverlayLayout(pane);
+        pane.setLayout(overlay);
+
+        //Sets the Frame size
+        frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+
+        //Imports the background image and adds it onto the panel
+        ImageIcon imageIcon = new ImageIcon("images.jpg"); //url: http://bhstorm.com/beautiful-sky-wallpapers-mobile/
+        Image imag = imageIcon.getImage();
+        Image img2 = imag.getScaledInstance(FRAME_WIDTH,FRAME_HEIGHT, java.awt.Image.SCALE_SMOOTH); 
+        ImageIcon img = new ImageIcon(img2);
+        JLabel image = new JLabel(img);
+
+        //Adds the Pane onto the Frame
+        frame.add(pane);
+        frame.setTitle("Balloons Moving");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
+        frame.setVisible(true);
+
+        //pane.add(balloon);
+        balloonList.add(balloon);
+
+        //Adds the Spikes and Bar onto the Pane
+        pane.add(sBB); 
+
+        //Moves the image to the back
+        pane.add(image,BorderLayout.CENTER);
+
+        class BalloonSpawner implements ActionListener
+        {
+            public void actionPerformed(ActionEvent  event)
+            {
+                balloonList.add(new BalloonGUI());
+                balloonCount++;
+            }
+        }
+
+        class TimerListener implements ActionListener
+        {
+            public void actionPerformed(ActionEvent event)
+            {
+                if(balloonCount == 0)
+                {
+                    pane.add(balloon);
+                    balloon.moveBy(1);
+                }
+                //balloonList.get(balloonCount).moveBy(1);
+
+                else //(balloonCount > 0)
+                {
+                    pane.add(balloonList.get(balloonCount));
+
+                    //                     for(int i = 0; i < 4; i++)
+                    //                     {                        
+                    (balloonList.get(balloonCount)).moveBy(1);
+                    //                         for(int count = 0; count < 10; count++)
+                    //                         {
+                    //                         }
+                    //pane.repaint();
+                    //balloonList.get(balloonCount).moveBy(1);
+                }
+                pane.repaint();
+            }
+        }
+
+        ActionListener listener = new TimerListener();
+        ActionListener balloonListener = new BalloonSpawner();
+
+        final int DELAY = 1000; // Milliseconds between timer ticks
+        final int DELAY2 = 10;
+
+        Timer t = new Timer(DELAY2, listener);
+        Timer t2 = new Timer(DELAY, balloonListener);
+
+        for(int i = 0; i < 5; i++)
+        {
+            t.start();
+            t2.start();
+        }
+    }
+}
+
