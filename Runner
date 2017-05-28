@@ -95,7 +95,7 @@ public class Runner
                     public void keyPressed(KeyEvent e)
                     {
                         //condition determines whether the balloon is within the rectangle and if the key matches the letter on the balloon
-                        if(component.getY()>=75 && component.getY()<=175 &&  e.getKeyCode()==KeyEvent.getExtendedKeyCodeForChar(let))
+                        if(component.getY()+100>=75 && component.getY()+100<=175 &&  e.getKeyCode()==KeyEvent.getExtendedKeyCodeForChar(let))
                         {
                             pane.remove(component);
                             frame.repaint();
