@@ -10,32 +10,29 @@ import javax.swing.*;
 
 public class BalloonGUI extends JComponent
 {
-    private int x = 100;
-    private int y = 400;
     private int h = 400;
-    private Balloon  balloon = new Balloon(x, y, 25, 35);
-    private String[]arr=balloon.getArray();
-    private int val=balloon.getRandomNumber();
+    private Balloon  balloon = new Balloon(600 ,25, 35);
+    private String[]arr = balloon.getArray();
+    private int val = balloon.getRandomNumber();
+    private String letter = balloon.getLetter();
+    private int y = balloon.getY();
 
-    
     public void paintComponent(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
         balloon.draw(g2);
-        Balloon balloonCopy = new Balloon(balloon.getX(), balloon.getY(), 25, 35);
-
+        Balloon balloonCopy = new Balloon(balloon.getY(), 25, 35);
     }
 
     public void moveBy(int x, int y)
     {
-        if(this.y == 25)
+        if(this.y == 50)
         {
-            y = 25;
+            y = 50;
         }
         else
         {
             balloon.setY(this.y -= y);            
-            balloon.setX(this.x -= x);
             repaint();
             h--;
         }
@@ -50,19 +47,24 @@ public class BalloonGUI extends JComponent
     {
         return arr;
     }
-    
+
     public int getX()
     {
-        return x;
+        return balloon.getX();
     }
-    
+
+    public String getLetter()
+    {
+        return letter;
+    }
+
     public int getH()
     {
         return h;
     }
-    
+
     public int getY()
     {
-        return y;
+        return balloon.getY();
     }
 }
