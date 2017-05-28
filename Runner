@@ -22,7 +22,7 @@ public class Runner3
     private static int balloonCount = 0;
 
     public static void main(String[] args)
-    {
+    { 
         //Creates the Frame and the Pane
         JFrame frame = new JFrame();
         JPanel pane = new JPanel();
@@ -92,17 +92,20 @@ public class Runner3
                 pane.add(image,BorderLayout.CENTER);
 
                 System.out.println(player.getHealth() + " " + player.getScore());
+                
+                //Balloons are mobing up here (NOTE: Working, but needs to be modified for working BalloonSpawningListener)
                 class BalloonMovingListener implements ActionListener
                 {
                     public void actionPerformed(ActionEvent event)
                     {
                         firstBalloon.moveBy(0,1);
-                        //.add(balloonList.get(balloonCount));
+                        //pane.add(balloonList.get(balloonCount));
                         //balloonList.get(balloonCount).moveBy(0, 1);
                         frame.repaint();
                     }
                 }
 
+                //Balloons are being created here (NOTE: Not working ATM)
                 class BalloonSpawningListener implements ActionListener
                 {
                     public void actionPerformed(ActionEvent event)
@@ -114,10 +117,13 @@ public class Runner3
                     }
                 }
 
+                
+                //How the game responds to player pressing the keyboard letters is defined here
                 class Keys implements KeyListener
                 {
                     public void keyPressed(KeyEvent e)
                     {
+                        //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
                         if(firstBalloon.getY()+100>=75 && firstBalloon.getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(let))
                         {
                             pane.remove(balloonList.get(0));
@@ -133,9 +139,11 @@ public class Runner3
 
                     public void keyReleased(KeyEvent e)
                     {
+                        //If the key pressed DOES NOT correspond to the assigned balloon letter, then player loses healt
                         if(e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(let) || !(firstBalloon.getY()+100 >= 75 && firstBalloon.getY()+100 <= 175) && player.getHealth() > 0)
                             player.setHealth();
 
+                        //If health is 0 or lower, then game removes balloon
                         if(player.getHealth() <= 0)
                             pane.remove(balloonList.get(0));
 
@@ -148,6 +156,7 @@ public class Runner3
                 ActionListener listener = new BalloonMovingListener();
 
                 pane.addKeyListener(new Keys());
+
                 // Random millisecond from 20 to 100 for balloon speed
                 int Delay = 25;
 
@@ -158,11 +167,13 @@ public class Runner3
                 Timer t = new Timer(BALLOON_SPAWING_SPEED, balloonSpawner);
                 Timer t2 = new Timer(Delay, listener);
 
+                //Starts the BalloonMoving Action and BalloonSpawning Action
                 t.start();
                 t2.start();
             }
         }
 
         playGame.addActionListener(new Action());
+
     }
 }
