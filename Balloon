@@ -8,15 +8,15 @@ public class Balloon
     private int height;
     private int width;
     private String letter;
-   private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};  
+    private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}; 
     private int rdmNum = (int) (Math.random() * 26);
-    public Balloon(int x, int y, int h, int w)
+    public Balloon(int y, int h, int w)
     {
         letter = alphabet[rdmNum];
-        this.x=x;
-        this.y=y;
-        height=h;
-        width=w;
+        this.x = (int) (Math.random() * (1000 - 30)) + 30;
+        this.y = y;
+        height = h;
+        width = w;
     }
 
     public void draw(Graphics g)
@@ -63,4 +63,3 @@ public class Balloon
         x = xVal;
     }
 }
-
