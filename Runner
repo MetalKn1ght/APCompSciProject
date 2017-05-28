@@ -97,8 +97,8 @@ public class Runner3
                     public void actionPerformed(ActionEvent event)
                     {
                         firstBalloon.moveBy(0,1);
-                        pane.add(balloonList.get(balloonCount));
-                        balloonList.get(balloonCount).moveBy(0, 1);
+                        //.add(balloonList.get(balloonCount));
+                        //balloonList.get(balloonCount).moveBy(0, 1);
                         frame.repaint();
                     }
                 }
@@ -118,7 +118,7 @@ public class Runner3
                 {
                     public void keyPressed(KeyEvent e)
                     {
-                        if(firstBalloon.getY()+100>=75 && firstBalloon.getY()+100<=175 &&  e.getKeyCode()==KeyEvent.getExtendedKeyCodeForChar(let))
+                        if(firstBalloon.getY()+100>=75 && firstBalloon.getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(let))
                         {
                             pane.remove(balloonList.get(0));
                             player.setScore();
@@ -133,7 +133,7 @@ public class Runner3
 
                     public void keyReleased(KeyEvent e)
                     {
-                        if(e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(let) && player.getHealth() > 0)
+                        if(e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(let) || !(firstBalloon.getY()+100 >= 75 && firstBalloon.getY()+100 <= 175) && player.getHealth() > 0)
                             player.setHealth();
 
                         if(player.getHealth() <= 0)
@@ -149,8 +149,7 @@ public class Runner3
 
                 pane.addKeyListener(new Keys());
                 // Random millisecond from 20 to 100 for balloon speed
-                int Delay = 10;
-               
+                int Delay = 25;
 
                 // Constant balloon spawning speed (One every 500 millisecond)
                 final int BALLOON_SPAWING_SPEED = 500; 
@@ -163,10 +162,7 @@ public class Runner3
                 t2.start();
             }
         }
-        
-        for(int i = 0; i < 5; i++)
-        {
-            playGame.addActionListener(new Action());
-        }
+
+        playGame.addActionListener(new Action());
     }
 }
