@@ -11,117 +11,152 @@ import javax.imageio.ImageIO;
  * Write a description of class Runner here.
  * 
  * @author (Michael Bagamian) 
- * @version (5/18/17)
+ * @version (5/24/17)
  */
-public class Runner
+public class Runner3
 {
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
     private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
+    private static ArrayList<String> balloonLetters = new ArrayList<String>();
+    private static int balloonCount = 0;
+    
     public static void main(String[] args)
     {
-        //sets title frame
-        JFrame frame = new JFrame(); 
-        JFrame frameFirst=new JFrame("Welcome to the Balloon Game!");
+        //Creates the Frame and the Pane
+        JFrame frame = new JFrame();
+        JPanel pane = new JPanel();
+
+        //Creates the Balloon Spanwer, Spikes, and Bar
+        PlayerStatus player = new PlayerStatus();
+        SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
+        BalloonGUI firstBalloon = new BalloonGUI();
+
+        //Adds the very first balloon onto the list of balloons called balloonList
+        balloonList.add(firstBalloon);
+        balloonLetters.add(balloonList.get(balloonCount).getLetter());
+
+        //Modifies the JFrame and 
+        JFrame frameFirst = new JFrame("Welcome to the Balloon Game!");
         frameFirst.setVisible(true);
         frameFirst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameFirst.setSize(FRAME_WIDTH, FRAME_HEIGHT);        
-        JPanel paneFirst=new JPanel();
-        JButton playGame=new JButton("Play Now");
-        JButton tutorial=new JButton("How To Play");
-        //paneFirst.setLayout(new OverlayLayout(paneFirst));
+        frameFirst.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+
+        //Creates buttons objects
+        JPanel paneFirst = new JPanel();
+        JButton playGame = new JButton("Play Now");
+        JButton tutorial = new JButton("How To Play");
+        ////////paneFirst.setLayout(new OverlayLayout(paneFirst));
+
+        //Adds buttons objects to the screen
         paneFirst.add(playGame);
-        frameFirst.add(paneFirst);
-        JPanel pane=new JPanel();                        
+
+        //paneFirst.add(tutorial);
+        frameFirst.add(paneFirst);     
+
         class Action implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
-                /*JFrame frameSecond=new JFrame("Game");
-                frameSecond.setVisible(true);
-                frameSecond.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-                JPanel paneSecond=new JPanel();
-                frameSecond.add(paneSecond);*/
-                //makes balloon with its letter and shape
-                BalloonGUI component = new BalloonGUI();
-                String letter=component.getArray()[component.getVal()].toUpperCase();
-                char let=letter.charAt(0);
-                //System.out.print(letter);
-                //JTextField text=new JTextField(3000);
-                /*GridBagConstraints c = new GridBagConstraints();
-                c.gridwidth = GridBagConstraints.REMAINDER;
-                c.insets = new Insets(10, 10, 10, 10);
-                c.fill = GridBagConstraints.HORIZONTAL;               
-                c.gridx = 0;
-                c.gridy = 25;                
-                pane.add(text,c);*/
-                //lays out how the frame will look like
-                LayoutManager overlay=new OverlayLayout(pane);
+                String letter = firstBalloon.getArray()[firstBalloon.getVal()].toUpperCase();
+                char let = letter.charAt(0);
+
+                //Lays out how the frame will look like
+                LayoutManager overlay = new OverlayLayout(pane);
                 pane.setLayout(overlay);
-                frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-                //creates spikes and rectangle for background
-                SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI(); 
-                //adds what will be seen on game frame
-                pane.add(sBB);    
-                pane.add(component);
-                //focuses panel on keylistener
-                pane.setFocusable(true);
-                pane.requestFocusInWindow();
-                pane.setFocusTraversalKeysEnabled(false);
-                //creates image for in game panel background
-                ImageIcon imageIcon = new ImageIcon("stockvault-sky1420691.jpg"); //url: https://fmirentals.com/weather-temps/
-                Image imag = imageIcon.getImage();
-                Image img2 = imag.getScaledInstance(FRAME_WIDTH,FRAME_HEIGHT, java.awt.Image.SCALE_SMOOTH); 
-                ImageIcon img=new ImageIcon(img2);
-                JLabel image=new JLabel(img);
-                //frame adds game panel
-                pane.add(image,BorderLayout.CENTER);
+
+                //Adds the Pane onto the Frame
+                frameFirst.setSize(FRAME_WIDTH, FRAME_HEIGHT);        
                 frame.add(pane);
                 frame.setTitle("Balloons Moving");
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
                 frame.setVisible(true);
- 
-                class TimerListener implements ActionListener
+
+                //Adds spikes and balloon onto the panel
+                pane.add(firstBalloon);
+                pane.add(sBB); 
+
+                //Focuses panel on keylistener
+                pane.setFocusable(true);
+                pane.requestFocusInWindow();
+                pane.setFocusTraversalKeysEnabled(false);
+
+                //Imports the background image and adds it onto the panel
+                ImageIcon imageIcon = new ImageIcon("images.jpg"); //url: http://bhstorm.com/beautiful-sky-wallpapers-mobile/
+                Image imag = imageIcon.getImage();
+                Image img2 = imag.getScaledInstance(FRAME_WIDTH,FRAME_HEIGHT, java.awt.Image.SCALE_SMOOTH); 
+                ImageIcon img = new ImageIcon(img2);
+                JLabel image = new JLabel(img);
+
+                //Moves the image to the back
+                pane.add(image,BorderLayout.CENTER);
+
+                class BalloonMovingListener implements ActionListener
                 {
                     public void actionPerformed(ActionEvent event)
                     {
-                        component.moveBy(0, 1);
+                        firstBalloon.moveBy(0,1);
+                        //                         pane.add(balloonList.get(balloonCount));
+                        //                         balloonList.get(balloonCount).moveBy(0, 1);
                         frame.repaint();
                     }
                 }
-                
+
+                class BalloonSpawningListener implements ActionListener
+                {
+                    public void actionPerformed(ActionEvent event)
+                    {
+                        BalloonGUI balloons = new BalloonGUI();
+                        balloonLetters.add(balloons.getLetter());
+                        balloonList.add(balloons);       
+                        balloonCount++;
+                    }
+                }
+
                 class Keys implements KeyListener
                 {
                     public void keyPressed(KeyEvent e)
                     {
-                        //condition determines whether the balloon is within the rectangle and if the key matches the letter on the balloon
-                        if(component.getY()+100>=75 && component.getY()+100<=175 &&  e.getKeyCode()==KeyEvent.getExtendedKeyCodeForChar(let))
+                        if(firstBalloon.getY()+100>=75 && firstBalloon.getY()+100<=175 &&  e.getKeyCode()==KeyEvent.getExtendedKeyCodeForChar(let))
                         {
-                            pane.remove(component);
+                            pane.remove(balloonList.get(0));
                             frame.repaint();
                         }
                     }
-                    //accessory methods for keylistener to work
+
                     public void keyTyped(KeyEvent e)
                     {
- 
+
                     }
- 
+
                     public void keyReleased(KeyEvent e)
                     {
- 
+                        if(e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(let) && player.getHealth() > 0)
+                            player.setHealth();
                     }
                 }
-                ActionListener listener = new TimerListener();
+
+                //Creates TimerListener Objects
+                ActionListener balloonSpawner = new BalloonSpawningListener();
+                ActionListener listener = new BalloonMovingListener();
+
                 pane.addKeyListener(new Keys());
-                final int DELAY = 10; // Milliseconds between timer ticks
-                Timer t = new Timer(DELAY, listener);
+                // Random millisecond from 20 to 100 for balloon speed
+                int Delay = 10;
+                //(int) (Math.random() * (100 - 20) + 1) + 20 ;
+
+                // Constant balloon spawning speed (One every 500 millisecond)
+                final int BALLOON_SPAWING_SPEED = 500; 
+
+                //Creates Timer Objects
+                Timer t = new Timer(BALLOON_SPAWING_SPEED, balloonSpawner);
+                Timer t2 = new Timer(Delay, listener);
+
                 t.start();
+                t2.start();
             }
         } 
-        playGame.addActionListener(new Action());        
+
+        playGame.addActionListener(new Action());
     }
 }
- 
- 
- 
