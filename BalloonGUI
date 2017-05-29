@@ -10,18 +10,44 @@ import javax.swing.*;
 
 public class BalloonGUI extends JComponent
 {
+    private int x;
+    private int y;
+    private int height; 
+    private int width; 
+    private String letter;
+    private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}; 
+    private int rdmNum = (int) (Math.random() * 26);
+
     private int h = 400;
-    private Balloon  balloon = new Balloon(600 ,25, 35);
-    private String[]arr = balloon.getArray();
-    private int val = balloon.getRandomNumber();
-    private String letter = balloon.getLetter();
-    private int y = balloon.getY();
+    private String[] arr;
+    private int val;
+
+    //private Balloon balloon = new Balloon(450 ,25, 35);
+
+    public BalloonGUI()
+    {
+        letter = alphabet[rdmNum];
+        this.x = (int) (Math.random() * (1000 - 30)) + 30;
+        this.y = 450;
+        height = 25;
+        width = 35;
+        int val = rdmNum;
+    }
+
+    public void draw(Graphics g)
+    {
+        g.setColor(Color.red);
+        g.fillOval(x,y, height, width);
+        g.drawLine(x+12, y+35, x+12, y+75);
+        g.setColor(Color.black);
+        g.drawString(letter,x+10,y+15);
+    }
 
     public void paintComponent(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
-        balloon.draw(g2);
-        Balloon balloonCopy = new Balloon(balloon.getY(), 25, 35);
+        draw(g2);
+        //Balloon balloonCopy = new Balloon(balloon.getY(), 25, 35);
     }
 
     public void moveBy(int x, int y)
@@ -32,7 +58,7 @@ public class BalloonGUI extends JComponent
         }
         else
         {
-            balloon.setY(this.y -= y);            
+           setY(this.y -= y);            
             repaint();
             h--;
         }
@@ -45,12 +71,12 @@ public class BalloonGUI extends JComponent
 
     public String[] getArray()
     {
-        return arr;
+        return alphabet;
     }
 
     public int getX()
     {
-        return balloon.getX();
+        return x;
     }
 
     public String getLetter()
@@ -65,6 +91,16 @@ public class BalloonGUI extends JComponent
 
     public int getY()
     {
-        return balloon.getY();
+        return y;
+    }
+
+    public void setY(int yVal)
+    {
+        y = yVal;
+    }
+
+    public void setX(int xVal)
+    {
+        x = xVal;
     }
 }
