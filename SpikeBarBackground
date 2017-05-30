@@ -12,9 +12,7 @@ public class SpikeBarBackground
 {
     private int[] x= {-40, -20, 0};
     private int[] y= {0, 25, 0};
-    private Object obj; 
-    private Object obj2;
-
+    
     public void draw(Graphics2D g2)
     {
         //Draws the Spikes
@@ -29,7 +27,7 @@ public class SpikeBarBackground
         }
 
         //Draws the Bar
-        Rectangle rect = new Rectangle(0, 75, 5000, 100);
+        Rectangle rect = new Rectangle(0, 25, 5000, 100);
         g2.setColor(Color.pink);
         g2.draw(rect);
     }
