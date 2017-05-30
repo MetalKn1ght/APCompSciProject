@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+
 /**
  * Write a description of class Runner here.
  * 
@@ -30,7 +31,24 @@ public class Runner3
         //Creates the Balloon Spanwer, Spikes, and Bar
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
-        BalloonGUI firstBalloon = new BalloonGUI();
+        BalloonGUI firstBalloon = new BalloonGUI(150);
+        BalloonGUI balloon2 = new BalloonGUI(200);
+        BalloonGUI balloon3 = new BalloonGUI(210);
+        BalloonGUI balloon4 = new BalloonGUI(230);
+        BalloonGUI balloon5 = new BalloonGUI(225);
+        BalloonGUI balloon6 = new BalloonGUI(215);
+        BalloonGUI balloon7 = new BalloonGUI(220);
+        BalloonGUI balloon8 = new BalloonGUI(217);
+        BalloonGUI balloon9 = new BalloonGUI(170);
+        BalloonGUI balloon10 = new BalloonGUI(160);
+        BalloonGUI balloon11 = new BalloonGUI(165);
+
+        ballooLetters.add(balloon2.getLetter());
+        ballooLetters.add(balloon3.getLetter());
+        ballooLetters.add(balloon4.getLetter());
+        ballooLetters.add(balloon5.getLetter());
+        ballooLetters.add(balloon6.getLetter());
+        ballooLetters.add(balloon7.getLetter());
 
         //Adds the very first balloon onto the list of balloons called balloonList
         balloonList.add(firstBalloon);
@@ -58,7 +76,7 @@ public class Runner3
         {
             public void actionPerformed(ActionEvent e)
             {
-                String letter = firstBalloon.getArray()[firstBalloon.getVal()].toUpperCase();
+                String letter = firstBalloon.getLetter();
                 char let = letter.charAt(0);
 
                 //Lays out how the frame will look like
@@ -99,8 +117,12 @@ public class Runner3
                     public void actionPerformed(ActionEvent event)
                     {
                         firstBalloon.moveBy(0,1);
-                        //pane.add(balloonList.get(balloonCount));
-                        //balloonList.get(balloonCount).moveBy(0, 1);
+                        balloon2.moveBy(0,1):
+                        balloon3.moveBy(0,1):
+                        balloon4.moveBy(0,1):
+                        balloon5.moveBy(0,1):
+                        balloon6.moveBy(0,1):
+                        balloon7.moveBy(0,1):
                         frame.repaint();
                     }
                 }
@@ -110,7 +132,7 @@ public class Runner3
                 {
                     public void actionPerformed(ActionEvent event)
                     {
-                        BalloonGUI balloons = new BalloonGUI();
+                        BalloonGUI balloons = new BalloonGUI(150);
                         balloonLetters.add(balloons.getLetter());
                         balloonList.add(balloons);       
                         balloonCount++;
@@ -123,7 +145,7 @@ public class Runner3
                     public void keyPressed(KeyEvent e)
                     {
                         //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
-                        if(firstBalloon.getY()+100>=75 && firstBalloon.getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(let))
+                        if(firstBalloon.getY() >= 13 && firstBalloon.getY() <= 75 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(let))
                         {
                             pane.remove(balloonList.get(0));
                             player.setScore();
@@ -145,6 +167,9 @@ public class Runner3
                         //If health is 0 or lower, then game removes balloon
                         if(player.getHealth() <= 0)
                             pane.remove(balloonList.get(0));
+
+                        System.out.println(player.getHealth());
+
                     }
                 }
 
@@ -169,9 +194,9 @@ public class Runner3
                 t.start();
                 t2.start();
             }
+
         }
 
         playGame.addActionListener(new Action());
-
     }
 }
