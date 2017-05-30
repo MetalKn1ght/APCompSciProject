@@ -24,11 +24,11 @@ public class BalloonGUI extends JComponent
 
     //private Balloon balloon = new Balloon(450 ,25, 35);
 
-    public BalloonGUI()
+    public BalloonGUI(int y)
     {
         letter = alphabet[rdmNum];
-        this.x = (int) (Math.random() * (1000 - 30)) + 30;
-        this.y = 450;
+        this.x = (int) (Math.random() * (500 - 30)) + 30;
+        this.y = y;
         height = 25;
         width = 35;
         int val = rdmNum;
@@ -51,9 +51,9 @@ public class BalloonGUI extends JComponent
 
     public void moveBy(int x, int y)
     {
-        if(this.y == 50)
+        if(this.y == 13)
         {
-            y = 50;
+            y = 13;
         }
         else
         {
