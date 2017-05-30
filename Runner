@@ -92,7 +92,7 @@ public class Runner3
                 pane.add(image,BorderLayout.CENTER);
 
                 System.out.println(player.getHealth() + " " + player.getScore());
-                
+
                 //Balloons are mobing up here (NOTE: Working, but needs to be modified for working BalloonSpawningListener)
                 class BalloonMovingListener implements ActionListener
                 {
@@ -117,7 +117,6 @@ public class Runner3
                     }
                 }
 
-                
                 //How the game responds to player pressing the keyboard letters is defined here
                 class Keys implements KeyListener
                 {
@@ -146,8 +145,6 @@ public class Runner3
                         //If health is 0 or lower, then game removes balloon
                         if(player.getHealth() <= 0)
                             pane.remove(balloonList.get(0));
-
-                        System.out.println(player.getHealth() + " " + player.getScore());
                     }
                 }
 
@@ -168,6 +165,7 @@ public class Runner3
                 Timer t2 = new Timer(Delay, listener);
 
                 //Starts the BalloonMoving Action and BalloonSpawning Action
+
                 t.start();
                 t2.start();
             }
