@@ -47,7 +47,6 @@ public class BalloonGUI extends JComponent
     {
         Graphics2D g2 = (Graphics2D) g;
         draw(g2);
-        //Balloon balloonCopy = new Balloon(balloon.getY(), 25, 35);
     }
 
     public void moveBy(int x, int y)
@@ -58,7 +57,7 @@ public class BalloonGUI extends JComponent
         }
         else
         {
-           setY(this.y -= y);            
+            setY(this.y -= y);            
             repaint();
             h--;
         }
