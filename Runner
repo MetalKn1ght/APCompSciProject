@@ -33,16 +33,16 @@ public class Runner3
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
         BalloonGUI firstBalloon = new BalloonGUI(450);
-        BalloonGUI balloon2 = new BalloonGUI(450);
-        BalloonGUI balloon3 = new BalloonGUI(450);
-        BalloonGUI balloon4 = new BalloonGUI(500);
-        BalloonGUI balloon5 = new BalloonGUI(470);
-        BalloonGUI balloon6 = new BalloonGUI(480);
-        BalloonGUI balloon7 = new BalloonGUI(490);
-        BalloonGUI balloon8 = new BalloonGUI(490);
-        BalloonGUI balloon9 = new BalloonGUI(480);
-        BalloonGUI balloon10 = new BalloonGUI(460);
-        BalloonGUI balloon11 = new BalloonGUI(475);
+        BalloonGUI balloon2 = new BalloonGUI(470);
+        BalloonGUI balloon3 = new BalloonGUI(500);
+        BalloonGUI balloon4 = new BalloonGUI(530);
+        BalloonGUI balloon5 = new BalloonGUI(560);
+        BalloonGUI balloon6 = new BalloonGUI(590);
+        BalloonGUI balloon7 = new BalloonGUI(620);
+        BalloonGUI balloon8 = new BalloonGUI(640);
+        BalloonGUI balloon9 = new BalloonGUI(670);
+        BalloonGUI balloon10 = new BalloonGUI(700);
+        BalloonGUI balloon11 = new BalloonGUI(730);
 
         balloonLetters.add(firstBalloon.getLetter());
         balloonLetters.add(balloon2.getLetter());
@@ -156,18 +156,6 @@ public class Runner3
                     }
                 }
 
-                //Balloons are being created here (NOTE: Not working ATM)
-                class BalloonSpawningListener implements ActionListener
-                {
-                    public void actionPerformed(ActionEvent event)
-                    {
-                        BalloonGUI balloons = new BalloonGUI(150);
-                        balloonLetters.add(balloons.getLetter());
-                        balloonList.add(balloons);       
-                        balloonCount++;
-                    }
-                }
-
                 //How the game responds to player pressing the keyboard letters is defined here
                 class Keys implements KeyListener
                 {
@@ -211,7 +199,7 @@ public class Runner3
                 }
 
                 //Creates TimerListener Objects
-                ActionListener balloonSpawner = new BalloonSpawningListener();
+
                 ActionListener listener = new BalloonMovingListener();
 
                 pane.addKeyListener(new Keys());
@@ -223,15 +211,12 @@ public class Runner3
                 final int BALLOON_SPAWING_SPEED = 500; 
 
                 //Creates Timer Objects
-                Timer t = new Timer(BALLOON_SPAWING_SPEED, balloonSpawner);
+                //Timer t = new Timer(BALLOON_SPAWING_SPEED, balloonSpawner);
                 Timer t2 = new Timer(Delay, listener);
 
                 //Starts the BalloonMoving Action and BalloonSpawning Action
-
-                t.start();
                 t2.start();
             }
-
         }
 
         playGame.addActionListener(new Action());
