@@ -198,6 +198,14 @@ public class Runner4
                         
                         if(balloonList.get(balloonCount).getY()==13)
                         {
+                            x = (int) (Math.random() * (200 - 30) + 30);
+                            x2= (int) (Math.random() * (200 - 30) + x+30);
+                            x3= (int) (Math.random() * (200 - 30) + x2+30);
+                            x4= (int) (Math.random() * (200 - 30) + x3+30);
+                            x5= (int) (Math.random() * (200 - 30) + x4+30);
+                            x6= (int) (Math.random() * (200 - 30) + x5+30);
+                            x7= (int) (Math.random() * (200 - 30) + x6+30);
+                            x8= (int) (Math.random() * (200 - 30) + x7+30);
                             balloonList.add(new BalloonGUI(x,400));
                             balloonList.add(new BalloonGUI(x2,400));
                             balloonList.add(new BalloonGUI(x3,400));
