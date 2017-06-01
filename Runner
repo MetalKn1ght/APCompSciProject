@@ -20,7 +20,7 @@ public class Runner3
     private static final int FRAME_HEIGHT = 1000;
     private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
     private static ArrayList<String> balloonLetters = new ArrayList<String>();
-    private static int[] balloonYCoordList = {470, 500, 530, 560, 590, 620, 650, 680, 710, 740};
+    private static int[] balloonYCoordList = {440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 740};
     private static int balloonCount = 0;
     private static int balloonYCoord = 450;
 
@@ -33,7 +33,7 @@ public class Runner3
         //Creates the Balloon Spanwer, Spikes, and Bar
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
-        BalloonGUI firstBalloon = new BalloonGUI(450);
+        BalloonGUI firstBalloon = new BalloonGUI(440);
         BalloonGUI balloon2 = new BalloonGUI(470);
         BalloonGUI balloon3 = new BalloonGUI(500);
         BalloonGUI balloon4 = new BalloonGUI(530);
@@ -167,13 +167,15 @@ public class Runner3
                         balloon10.moveBy(0,1);
                         balloon11.moveBy(0,1);
                         frame.repaint();
-                        
+
                         for(int i = 0; i < balloonList.size(); i++)
                         {
                             if(balloonList.get(i).getY() == 13)
-                            {
+                            {                                
                                 balloonList.get(i).setVisible(false);
-                                pane.add(balloonList.get(i).setY(balloonYCoordList[i]));
+                                balloonList.get(i).setY(balloonYCoordList[i]);
+                                pane.add(balloonList.get(i));
+                                balloonList.get(i).setVisible(true);
                             }
                         }
                     }
@@ -187,7 +189,7 @@ public class Runner3
                         //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
                         for(int i = 0; i < balloonList.size(); i++)
                         {
-                            if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
+                            if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 68 && e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
                             {
                                 pane.remove(balloonList.get(i));
                                 player.setScore();
@@ -216,7 +218,7 @@ public class Runner3
                 pane.addKeyListener(new Keys());
 
                 // Random millisecond from 20 to 100 for balloon speed
-                int Delay = 25;
+                int Delay = 5;
 
                 // Constant balloon spawning speed (One every 500 millisecond)
                 //final int BALLOON_SPAWING_SPEED = 500; 
