@@ -165,13 +165,36 @@ public class Runner3
                         //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
                         for(int i = 0; i < balloonList.size(); i++)
                         {
-                            char letr = balloonLetters.get(i).charAt(0);
-                            if(firstBalloon.getY() >= 13 && firstBalloon.getY() <= 75 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(letr))
+                            //                             char letr = balloonLetters.get(i).charAt(0);
+                            //                             if(firstBalloon.getY() >= 13 && firstBalloon.getY() <= 75 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(letr))
+                            //                             {
+                            //                                 pane.remove(balloonList.get(0));
+                            //                                 player.setScore();
+                            //                                 frame.repaint();
+                            //                             }
+
+                            if(player.getHealth() <= 0)
+                            { 
+                                i = 0;
+                                pane.remove(balloonList.get(i));
+                            }
+
+                            if(balloonList.get(i).getY() >= 75) 
                             {
-                                pane.remove(balloonList.get(0));
+                                player.setHealth();
+                                System.out.println(player.getHealth());
+                            }
+
+                            if(balloonList.get(i).getY() >= 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
+                            {
+                                pane.remove(balloonList.get(i));
                                 player.setScore();
                                 frame.repaint();
-                            }
+                            }   
+
+                            if(i == balloonList.size())
+                                i = 0;
+
                         }
                     }
 
@@ -182,20 +205,20 @@ public class Runner3
 
                     public void keyReleased(KeyEvent e)
                     {
-                        for(int i = 0; player.getHealth() > 0; i++)
-                        {
-                            char letr = balloonLetters.get(i).charAt(0);
-                            //If the key pressed DOES NOT correspond to the assigned balloon letter, then player loses healt
-                            if(e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(letr) || !(firstBalloon.getY()+100 >= 75 && firstBalloon.getY()+100 <= 175) && player.getHealth() > 0)
-                                player.setHealth();
-
-                            //If health is 0 or lower, then game removes balloon
-                            if(player.getHealth() <= 0)
-                                pane.remove(balloonList.get(0));
-
-                            System.out.println(player.getHealth());
-
-                        }
+                        //                         for(int i = 0; player.getHealth() > 0; i++)
+                        //                         {
+                        //                             char letr = balloonLetters.get(i).charAt(0);
+                        //                             //If the key pressed DOES NOT correspond to the assigned balloon letter, then player loses healt
+                        //                             if(e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(letr) || !(firstBalloon.getY()+100 >= 75 && firstBalloon.getY()+100 <= 175) && player.getHealth() > 0)
+                        //                                 player.setHealth();
+                        // 
+                        //                             //If health is 0 or lower, then game removes balloon
+                        //                             if(player.getHealth() <= 0)
+                        //                                 pane.remove(balloonList.get(i));
+                        // 
+                        //                             System.out.println(player.getHealth());
+                        // 
+                        //                         }
                     }
                 }
 
