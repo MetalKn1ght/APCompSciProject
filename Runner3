@@ -1,0 +1,378 @@
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.OverlayLayout;
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+/**
+ * Write a description of class Runner here.
+ * 
+ * @author (Michael Bagamian) 
+ * @version (5/24/17)
+ */
+public class Runner4
+{
+    private static final int FRAME_WIDTH = 3000;
+    private static final int FRAME_HEIGHT = 1000;
+    private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
+    private static ArrayList<String> balloonLetters = new ArrayList<String>();
+    private static int balloonCount = 0;
+    private static int x = (int) (Math.random() * (200 - 30) + 30);
+    private static int x2= (int) (Math.random() * (200 - 30) + x+30);
+    private static int x3= (int) (Math.random() * (200 - 30) + x2+30);
+    private static int x4= (int) (Math.random() * (200 - 30) + x3+30);
+    private static int x5= (int) (Math.random() * (200 - 30) + x4+30);
+    private static int x6= (int) (Math.random() * (200 - 30) + x5+30);
+    private static int x7= (int) (Math.random() * (200 - 30) + x6+30);
+    private static int x8= (int) (Math.random() * (200 - 30) + x7+30);
+    private static int change=0;
+    public static void main(String[] args)
+    { 
+        //Creates the Frame and the Pane
+        JFrame frame = new JFrame();
+        JPanel pane = new JPanel();
+
+        //Creates the Balloon Spanwer, Spikes, and Bar
+        PlayerStatus player = new PlayerStatus();
+        SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
+
+        //Adds the very first balloon onto the list of balloons called balloonList
+        balloonList.add(new BalloonGUI(x,400));
+        balloonList.add(new BalloonGUI(x2,400));
+        balloonList.add(new BalloonGUI(x3,400));
+        balloonList.add(new BalloonGUI(x4,400));
+        balloonList.add(new BalloonGUI(x5,400));
+        balloonList.add(new BalloonGUI(x6,400));
+        balloonList.add(new BalloonGUI(x7,400));
+        balloonList.add(new BalloonGUI(x8,400));
+        balloonLetters.add(balloonList.get(balloonCount).getLetter());
+
+        //Modifies the JFrame and 
+        JFrame frameFirst = new JFrame("Welcome to the Balloon Game!");
+        frameFirst.setVisible(true);
+        frameFirst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameFirst.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+
+        //Creates buttons objects
+        JPanel paneFirst = new JPanel();
+        JButton playGame = new JButton("Play Now");
+        JButton tutorial = new JButton("How To Play");
+        ////////paneFirst.setLayout(new OverlayLayout(paneFirst));
+
+        //Adds buttons objects to the screen
+        paneFirst.add(playGame);
+
+        //paneFirst.add(tutorial);
+        frameFirst.add(paneFirst);     
+
+        class Action implements ActionListener
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+
+                //Lays out how the frame will look like
+                LayoutManager overlay = new OverlayLayout(pane);
+                pane.setLayout(overlay);
+
+                //Adds the Pane onto the Frame
+                frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+
+                frame.setTitle("Balloons Moving");
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
+                frame.setVisible(true);
+
+                //Adds spikes and balloon onto the panel
+                pane.add(balloonList.get(balloonCount));
+                pane.add(balloonList.get(balloonCount+1));
+                pane.add(balloonList.get(balloonCount+2));
+                pane.add(balloonList.get(balloonCount+3));
+                pane.add(balloonList.get(balloonCount+4));
+                pane.add(balloonList.get(balloonCount+5));
+                pane.add(balloonList.get(balloonCount+6));
+                pane.add(balloonList.get(balloonCount+7));
+                pane.add(sBB); 
+                frame.add(pane);
+                //Focuses panel on keylistener
+                pane.setFocusable(true);
+                pane.requestFocusInWindow();
+                pane.setFocusTraversalKeysEnabled(false);
+                System.out.println(balloonList.get(balloonCount).getLetter());
+
+                //Imports the background image and adds it onto the panel
+                //ImageIcon imageIcon = new ImageIcon("images.jpg"); //url: http://bhstorm.com/beautiful-sky-wallpapers-mobile/
+                //Image imag = imageIcon.getImage();
+                //Image img2 = imag.getScaledInstance(FRAME_WIDTH,FRAME_HEIGHT, java.awt.Image.SCALE_SMOOTH); 
+                //ImageIcon img = new ImageIcon(img2);
+                //JLabel image = new JLabel(img);
+                frame.setBackground(Color.blue);
+                //Moves the image to the back
+                //pane.add(image,BorderLayout.CENTER);
+
+                System.out.println(player.getHealth() + " " + player.getScore());
+
+                //Balloons are mobing up here (NOTE: Working, but needs to be modified for working BalloonSpawningListener)
+
+                //Balloons are being created here (NOTE: Not working ATM)
+                class BalloonMovingListener implements ActionListener
+                {
+                    public void actionPerformed(ActionEvent event)
+                    {                          
+                        balloonList.get(balloonCount).moveBy(0,1);
+
+                        balloonList.get(balloonCount+1).moveBy(0,1);
+
+                        balloonList.get(balloonCount+2).moveBy(0,1);
+
+                        balloonList.get(balloonCount+3).moveBy(0,1);
+
+                        balloonList.get(balloonCount+4).moveBy(0,1);
+
+                        balloonList.get(balloonCount+5).moveBy(0,1);
+
+                        balloonList.get(balloonCount+6).moveBy(0,1);
+
+                        balloonList.get(balloonCount+7).moveBy(0,1);
+
+                        frame.repaint();
+                        
+                        /*if(balloonList.get(balloonCount).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x,400));
+                            balloonList.get(balloonCount).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+1).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x2,400));
+                            balloonList.get(balloonCount+1).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+2).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x3,400));
+                            balloonList.get(balloonCount+2).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+3).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x4,400));
+                            balloonList.get(balloonCount+3).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+4).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x5,400));
+                            balloonList.get(balloonCount+4).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+5).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x6,400));
+                            balloonList.get(balloonCount+5).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+6).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x7,400));
+                            balloonList.get(balloonCount+6).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }
+                        if(balloonList.get(balloonCount+7).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x8,400));
+                            balloonList.get(balloonCount+7).setVisible(false);
+                            balloonCount++;
+                            pane.add(balloonList.get(balloonCount+7));
+                        }*/
+                        
+                        if(balloonList.get(balloonCount).getY()==13)
+                        {
+                            balloonList.add(new BalloonGUI(x,400));
+                            balloonList.add(new BalloonGUI(x2,400));
+                            balloonList.add(new BalloonGUI(x3,400));
+                            balloonList.add(new BalloonGUI(x4,400));
+                            balloonList.add(new BalloonGUI(x5,400));
+                            balloonList.add(new BalloonGUI(x6,400));
+                            balloonList.add(new BalloonGUI(x7,400));
+                            balloonList.add(new BalloonGUI(x8,400));
+                            balloonList.get(balloonCount).setVisible(false);
+                            balloonList.get(balloonCount+1).setVisible(false);
+                            balloonList.get(balloonCount+2).setVisible(false);
+                            balloonList.get(balloonCount+3).setVisible(false);
+                            balloonList.get(balloonCount+4).setVisible(false);
+                            balloonList.get(balloonCount+5).setVisible(false);
+                            balloonList.get(balloonCount+6).setVisible(false);
+                            balloonList.get(balloonCount+7).setVisible(false);
+                            balloonCount=balloonCount+8;
+                            pane.add(balloonList.get(balloonCount));
+                            pane.add(balloonList.get(balloonCount+1));
+                            pane.add(balloonList.get(balloonCount+2));
+                            pane.add(balloonList.get(balloonCount+3));
+                            pane.add(balloonList.get(balloonCount+4));
+                            pane.add(balloonList.get(balloonCount+5));
+                            pane.add(balloonList.get(balloonCount+6));
+                            pane.add(balloonList.get(balloonCount+7));
+                            frame.setBackground(Color.gray);
+                            System.out.println(balloonList.get(balloonCount+1).getLetter());
+                        }          
+
+                    }
+                }   
+
+                //How the game responds to player pressing the keyboard letters is defined here
+                class Keys implements KeyListener
+                {
+                    public void keyPressed(KeyEvent e)
+                    {
+                        
+                        if(balloonList.get(balloonCount).getY()+100>=75 && balloonList.get(balloonCount).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x,400));
+                            balloonList.get(balloonCount).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+1).getY()+100>=75 && balloonList.get(balloonCount+1).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+1).getLetter().charAt(0)))
+                        {
+                           // balloonList.add(new BalloonGUI(x2,400));
+                            balloonList.get(balloonCount+1).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+2).getY()+100>=75 && balloonList.get(balloonCount+2).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+2).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x3,400));
+                            balloonList.get(balloonCount+2).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+3).getY()+100>=75 && balloonList.get(balloonCount+3).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+3).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x4,400));
+                            balloonList.get(balloonCount+3).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+4).getY()+100>=75 && balloonList.get(balloonCount+4).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+4).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x5,400));
+                            balloonList.get(balloonCount+4).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+5).getY()+100>=75 && balloonList.get(balloonCount+5).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+5).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x6,400));
+                            balloonList.get(balloonCount+5).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+6).getY()+100>=75 && balloonList.get(balloonCount+6).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+6).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x7,400));
+                            balloonList.get(balloonCount+6).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        if(balloonList.get(balloonCount+7).getY()+100>=75 && balloonList.get(balloonCount+7).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+7).getLetter().charAt(0)))
+                        {
+                            //balloonList.add(new BalloonGUI(x8,400));
+                            balloonList.get(balloonCount+7).setVisible(false);
+                            //balloonCount++;
+                            //pane.add(balloonList.get(balloonCount));
+                        }
+                        //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
+                        /*if((balloonList.get(balloonCount).getY()+100>=75 && balloonList.get(balloonCount).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+1).getY()+100>=75 && balloonList.get(balloonCount+1).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+1).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+2).getY()+100>=75 && balloonList.get(balloonCount+2).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+2).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+3).getY()+100>=75 && balloonList.get(balloonCount+3).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+3).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+4).getY()+100>=75 && balloonList.get(balloonCount+4).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+4).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+5).getY()+100>=75 && balloonList.get(balloonCount+5).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+5).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+6).getY()+100>=75 && balloonList.get(balloonCount+6).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+6).getLetter().charAt(0)))||
+                        (balloonList.get(balloonCount+7).getY()+100>=75 && balloonList.get(balloonCount+7).getY()+100<=175 &&  e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonList.get(balloonCount+7).getLetter().charAt(0))))
+                        {
+                            balloonList.add(new BalloonGUI(x,400));
+                            balloonList.add(new BalloonGUI(x2,400));
+                            balloonList.add(new BalloonGUI(x3,400));
+                            balloonList.add(new BalloonGUI(x4,400));
+                            balloonList.add(new BalloonGUI(x5,400));
+                            balloonList.add(new BalloonGUI(x6,400));
+                            balloonList.add(new BalloonGUI(x7,400));
+                            balloonList.add(new BalloonGUI(x8,400));
+                            balloonList.get(balloonCount).setVisible(false);
+                            balloonList.get(balloonCount+1).setVisible(false);
+                            balloonList.get(balloonCount+2).setVisible(false);
+                            balloonList.get(balloonCount+3).setVisible(false);
+                            balloonList.get(balloonCount+4).setVisible(false);
+                            balloonList.get(balloonCount+5).setVisible(false);
+                            balloonList.get(balloonCount+6).setVisible(false);
+                            balloonList.get(balloonCount+7).setVisible(false);
+                            balloonCount=balloonCount+8;
+                            pane.add(balloonList.get(balloonCount));
+                            pane.add(balloonList.get(balloonCount+1));
+                            pane.add(balloonList.get(balloonCount+2));
+                            pane.add(balloonList.get(balloonCount+3));
+                            pane.add(balloonList.get(balloonCount+4));
+                            pane.add(balloonList.get(balloonCount+5));
+                            pane.add(balloonList.get(balloonCount+6));
+                            pane.add(balloonList.get(balloonCount+7));
+                            System.out.println(balloonList.get(balloonCount+1).getLetter());
+                        }*/
+                    }
+
+                    public void keyTyped(KeyEvent e)
+                    {
+
+                    }
+
+                    public void keyReleased(KeyEvent e)
+                    {
+                        //If the key pressed DOES NOT correspond to the assigned balloon letter, then player loses healt
+                        //if(e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(let) || !(firstBalloon.getY()+100 >= 75 && firstBalloon.getY()+100 <= 175) && player.getHealth() > 0)
+                        // player.setHealth();
+
+                        //If health is 0 or lower, then game removes balloon
+                        //if(player.getHealth() <= 0)
+                        //pane.remove(balloonList.get(0));
+                    }
+                }
+
+                //Creates TimerListener Objects
+                //ActionListener balloonSpawner = new BalloonSpawningListener();
+                ActionListener listener=new BalloonMovingListener();
+
+                pane.addKeyListener(new Keys());
+
+                // Random millisecond from 20 to 100 for balloon speed
+                int Delay = 10;
+
+                // Constant balloon spawning speed (One every 500 millisecond)
+                final int BALLOON_SPAWING_SPEED = 500; 
+
+                //Creates Timer Objects
+                //Timer t = new Timer(BALLOON_SPAWING_SPEED, balloonSpawner);
+                Timer t2 = new Timer(Delay, listener);
+
+                //Starts the BalloonMoving Action and BalloonSpawning Action
+
+                //t.start();
+                t2.start();
+            }
+        }
+
+        playGame.addActionListener(new Action());
+
+    }
+
+}
