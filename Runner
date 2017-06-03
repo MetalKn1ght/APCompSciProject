@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  * @author (Michael Bagamian) 
  * @version (5/24/17)
  */
-public class Runner3
+public class Runner
 {
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
@@ -33,7 +33,7 @@ public class Runner3
         //Creates the Balloon Spanwer, Spikes, and Bar
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
-        BalloonGUI firstBalloon = new BalloonGUI(440);
+        BalloonGUI balloon1 = new BalloonGUI(440);
         BalloonGUI balloon2 = new BalloonGUI(470);
         BalloonGUI balloon3 = new BalloonGUI(500);
         BalloonGUI balloon4 = new BalloonGUI(530);
@@ -45,7 +45,7 @@ public class Runner3
         BalloonGUI balloon10 = new BalloonGUI(710);
         BalloonGUI balloon11 = new BalloonGUI(740);
 
-        balloonLetters.add(firstBalloon.getLetter());
+        balloonLetters.add(balloon1.getLetter());
         balloonLetters.add(balloon2.getLetter());
         balloonLetters.add(balloon3.getLetter());
         balloonLetters.add(balloon4.getLetter());
@@ -58,7 +58,7 @@ public class Runner3
         balloonLetters.add(balloon11.getLetter());
 
         //Adds the very first balloon onto the list of balloons called balloonList
-        balloonList.add(firstBalloon);
+        balloonList.add(balloon1);
         balloonList.add(balloon2);
         balloonList.add(balloon3);
         balloonList.add(balloon4);
@@ -69,18 +69,6 @@ public class Runner3
         balloonList.add(balloon9);
         balloonList.add(balloon10);
         balloonList.add(balloon11);
-        // 
-        //         balloonYCoordList.add(firstBalloon.getY());
-        //         balloonYCoordList.add(balloon2.getY());
-        //         balloonYCoordList.add(balloon3.getY());
-        //         balloonYCoordList.add(balloon4.getY());
-        //         balloonYCoordList.add(balloon5.getY());
-        //         balloonYCoordList.add(balloon6.getY());
-        //         balloonYCoordList.add(balloon7.getY());
-        //         balloonYCoordList.add(balloon8.getY());
-        //         balloonYCoordList.add(balloon9.getY());
-        //         balloonYCoordList.add(balloon10.getY());
-        //         balloonYCoordList.add(balloon11.getY());
 
         //Modifies the JFrame and 
         JFrame frameFirst = new JFrame("Welcome to the Balloon Game!");
@@ -105,7 +93,7 @@ public class Runner3
         {
             public void actionPerformed(ActionEvent e)
             {
-                String letter = firstBalloon.getLetter();
+                String letter = balloon1.getLetter();
                 char let = letter.charAt(0);
 
                 //Lays out how the frame will look like
@@ -120,7 +108,7 @@ public class Runner3
                 frame.setVisible(true);
 
                 //Adds spikes and balloon onto the panel
-                pane.add(firstBalloon);
+                pane.add(balloon1);
                 pane.add(balloon2);
                 pane.add(balloon3);
                 pane.add(balloon4);
@@ -148,14 +136,13 @@ public class Runner3
                 //Moves the image to the back
                 pane.add(image,BorderLayout.CENTER);
 
-                System.out.println(player.getHealth() + " " + player.getScore());
-
                 //Balloons are mobing up here (NOTE: Working, but needs to be modified for working BalloonSpawningListener)
                 class BalloonMovingListener implements ActionListener
                 {
                     public void actionPerformed(ActionEvent event)
                     {
-                        firstBalloon.moveBy(0,1);
+
+                        balloon1.moveBy(0,1);
                         balloon2.moveBy(0,1);
                         balloon3.moveBy(0,1);
                         balloon4.moveBy(0,1);
@@ -171,16 +158,31 @@ public class Runner3
                         for(int i = 0; i < balloonList.size(); i++)
                         {
                             if(balloonList.get(i).getY() == 13)
-                            {                                
+                            {     
+                                int rdmLetterNum = (int) (Math.random() * 26);
+                                int rdmXCoord = (int) (Math.random() * (900 - 30)) + 30;
                                 balloonList.get(i).setVisible(false);
                                 balloonList.get(i).setY(balloonYCoordList[i]);
+                                balloonList.get(i).setX(rdmXCoord);
+                                balloonList.get(i).setLetter(rdmLetterNum);
                                 pane.add(balloonList.get(i));
                                 balloonList.get(i).setVisible(true);
+                                player.setHealth();
+                                pane.add(image,BorderLayout.CENTER);
+                                frame.repaint();
+                            }
+
+                            if(i == balloonList.size())
+                                i = 0;
+
+                            if(player.getHealth() <= 0)
+                            {
+                               balloonList.get(i).setVisible(false);
                             }
                         }
                     }
                 }
-
+                
                 //How the game responds to player pressing the keyboard letters is defined here
                 class Keys implements KeyListener
                 {
@@ -194,11 +196,18 @@ public class Runner3
                                 pane.remove(balloonList.get(i));
                                 player.setScore();
                                 frame.repaint();
-                            }   
+                            }
+
+                            if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() < 68 && e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
+                            {
+                                player.setHealth();
+                            }
 
                             if(i == balloonList.size())
                                 i = 0;
                         }
+
+                        System.out.println(player.getScore() + " " + player.getHealth());
                     }
 
                     public void keyTyped(KeyEvent e)
@@ -218,7 +227,7 @@ public class Runner3
                 pane.addKeyListener(new Keys());
 
                 // Random millisecond from 20 to 100 for balloon speed
-                int Delay = 5;
+                int Delay = 15;
 
                 // Constant balloon spawning speed (One every 500 millisecond)
                 //final int BALLOON_SPAWING_SPEED = 500; 
@@ -235,3 +244,4 @@ public class Runner3
         playGame.addActionListener(new Action());
     }
 }
+
