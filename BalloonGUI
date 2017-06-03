@@ -8,48 +8,46 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class BalloonGUI extends JComponent
+public class Balloon extends JComponent
 {
     private int x;
     private int y;
-    private int height; 
-    private int width; 
+    private final int HEIGHT = 25; 
+    private final int WIDTH = 35; 
     private String letter;
-    private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}; 
     private int rdmNum = (int) (Math.random() * 26);
+    
+    private Color color = new Color((int) (Math.random() * 206 + 50), (int) (Math.random() * 206 + 50), (int) (Math.random() * 206 + 50));
 
-    private int h = 400;
-    private String[] arr;
-    private int val;
+    private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}; 
 
-    //private Balloon balloon = new Balloon(450 ,25, 35);
-
-    public BalloonGUI(int y)
+    //Creates Balloon Object with given Y Coord. X is randomly generated; 
+    public Balloon(int y)
     {
         letter = alphabet[rdmNum];
-        this.x = (int) (Math.random() * (500 - 30)) + 30;
+        this.x = (int) (Math.random() * (900 - 30)) + 30;
         this.y = y;
-        height = 25;
-        width = 35;
-        int val = rdmNum;
     }
 
+    //Draws the Balloon
     public void draw(Graphics g)
     {
-        g.setColor(Color.red);
-        g.fillOval(x,y, height, width);
+        g.setColor(color);
+        g.fillOval(x,y, HEIGHT, WIDTH);
         g.drawLine(x+12, y+35, x+12, y+75);
         g.setColor(Color.black);
         g.drawString(letter,x+10,y+15);
     }
 
+    //Adds it onto the screen when called
     public void paintComponent(Graphics g)
     {
         Graphics2D g2 = (Graphics2D) g;
         draw(g2);
     }
 
-    public void moveBy(int x, int y)
+    //Makes the balloon float up by reducing the Y coord
+    public void moveBy(int y)
     {
         if(this.y == 13)
         {
@@ -57,49 +55,34 @@ public class BalloonGUI extends JComponent
         }
         else
         {
-            setY(this.y -= y);            
+            this.y -= y;            
             repaint();
-            h--;
         }
     }
 
-    public int getVal()
-    {
-        return val;
-    }
-
-    public String[] getArray()
-    {
-        return alphabet;
-    }
-
+    //Returns the X Coord
     public int getX()
     {
         return x;
     }
 
-    public String getLetter()
-    {
-        return letter;
-    }
-
-    public int getH()
-    {
-        return h;
-    }
-
+    //Returns the Y Coord
     public int getY()
     {
         return y;
     }
 
-    public void setY(int yVal)
+    //Returns the letter that the Balloon is assigned to
+    public String getLetter()
     {
-        y = yVal;
+        return letter;
     }
 
-    public void setX(int xVal)
+    //Completely modifies all the values of the Balloon
+    public void reset(int y)
     {
-        x = xVal;
+        x = (int) (Math.random() * (900 - 30)) + 30;
+        letter = alphabet[(int) (Math.random() * 26)];
+        this.y = y;
     }
 }
