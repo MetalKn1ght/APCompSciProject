@@ -20,7 +20,7 @@ public class Runner
     private static final int FRAME_HEIGHT = 1000;
     private static ArrayList<Balloon>  balloonList = new ArrayList<Balloon>();
     private static ArrayList<String> balloonLetters = new ArrayList<String>();
-    private static int[] balloonYCoordList = {440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 740};
+    private static int[] balloonYCoordList = {440, 480, 540, 580, 620, 660, 700, 740, 780, 800, 830, 860, 890, 900, 910};
     private static int balloonCount = 0;
     private static int balloonYCoord = 450;
 
@@ -34,20 +34,20 @@ public class Runner
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
         Balloon balloon1 = new Balloon(440);
-        Balloon balloon2 = new Balloon(470);
-        Balloon balloon3 = new Balloon(500);
-        Balloon balloon4 = new Balloon(530);
-        Balloon balloon5 = new Balloon(560);
-        Balloon balloon6 = new Balloon(590);
-        Balloon balloon7 = new Balloon(620);
-        Balloon balloon8 = new Balloon(650);
-        Balloon balloon9 = new Balloon(680);
-        Balloon balloon10 = new Balloon(710);
-        Balloon balloon11 = new Balloon(740);
-        Balloon balloon12 = new Balloon(750);
-        Balloon balloon13 = new Balloon(760);
-        Balloon balloon14 = new Balloon(770);
-        Balloon balloon15 = new Balloon(780);
+        Balloon balloon2 = new Balloon(480);
+        Balloon balloon3 = new Balloon(540);
+        Balloon balloon4 = new Balloon(580);
+        Balloon balloon5 = new Balloon(620);
+        Balloon balloon6 = new Balloon(660);
+        Balloon balloon7 = new Balloon(700);
+        Balloon balloon8 = new Balloon(740);
+        Balloon balloon9 = new Balloon(780);
+        Balloon balloon10 = new Balloon(800);
+        Balloon balloon11 = new Balloon(830);
+        Balloon balloon12 = new Balloon(860);
+        Balloon balloon13 = new Balloon(890);
+        Balloon balloon14 = new Balloon(900);
+        Balloon balloon15 = new Balloon(910);
 
         //Adds the assigned Letter from each balloon to an ArrayList of type String called balloonLetters. 
         balloonLetters.add(balloon1.getLetter());
@@ -118,7 +118,7 @@ public class Runner
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
                 frame.setVisible(true);
 
-                //Adds spikes and balloon onto the panel
+                //Adds the balloons onto the panel
                 pane.add(balloon1);
                 pane.add(balloon2);
                 pane.add(balloon3);
@@ -134,6 +134,8 @@ public class Runner
                 pane.add(balloon13);
                 pane.add(balloon14);
                 pane.add(balloon15);
+                
+                //Adds the spikes and the popping bar onto the panel
                 pane.add(sBB); 
 
                 //Focuses panel on keylistener
@@ -219,19 +221,17 @@ public class Runner
                                 player.setScore();
                                 frame.repaint();
                             }
-                            // 
-                            //                             if(balloonList.get(i).getY() > 75)
-                            //                             {
-                            //                                 player.setHealth();
-                            //                             }
-                            //                             
-                            //                             if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
-                            //                             {
-                            //                                 player.setHealth();
-                            //                             }
 
-                            if(i == balloonList.size())
-                                i = 0;
+                            //                             //If player pressed the keyboard, but the balloon is not in the popping board, then player loses health
+                            //                             if(balloonList.get(i).getY() > 75)
+                            //                                 player.setHealth();
+                            // 
+                            //                             //If player presses the wrong button for the balloon, then player loses health
+                            //                             if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
+                            //                                 player.setHealth();
+                            // 
+                            //                             if(i == balloonList.size())
+                            //                                 i = 0;
                         }
 
                         System.out.println(player.getHealth());
@@ -267,4 +267,3 @@ public class Runner
         playGame.addActionListener(new Action());
     }
 }
-
