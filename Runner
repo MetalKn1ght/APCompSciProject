@@ -158,23 +158,30 @@ public class Runner
                         {
                             if(balloonList.get(i).getY() == 13)
                             {     
+                                //Generates a random number from 0 to 25. That number represents one letter from the alphabet 
                                 int rdmLetterNum = (int) (Math.random() * 26);
+                                //Generates a random number from 30 to 900 to determine the X-coordinate for the balloon to spawn in
                                 int rdmXCoord = (int) (Math.random() * (900 - 30)) + 30;
 
-                                balloonList.get(i).setVisible(false);
+                                //Sets the visibility to false
+                                pane.remove(balloonList.get(i));
 
+                                //Assign the X coordinate from the random generated number; the Y coordinate is from the array; letter is from the letter generator
                                 balloonList.get(i).setY(balloonYCoordList[i]);
                                 balloonList.get(i).setX(rdmXCoord);
                                 balloonList.get(i).setLetter(rdmLetterNum);
-                                
+
+                                //Replace the previous balloon with a new balloon with new location and letter
                                 balloonLetters.set(i, balloonList.get(i).getLetter());
-                                
+
+                                //Add the balloon onto the screen and put the imported image to the background
                                 pane.add(balloonList.get(i));
                                 pane.add(image,BorderLayout.CENTER);
-                                
+
+                                //Turn the visibility back on
                                 balloonList.get(i).setVisible(true);
-                                player.setHealth();
-                                
+
+                                //Repaint the frame
                                 frame.repaint();
                             }
 
@@ -203,17 +210,22 @@ public class Runner
                                 player.setScore();
                                 frame.repaint();
                             }
-
-                            if(balloonList.get(i).getY() == 13 && balloonList.get(i).getY() > 75 && e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
-                            {
-                                player.setHealth();
-                            }
+                            // 
+                            //                             if(balloonList.get(i).getY() > 75)
+                            //                             {
+                            //                                 player.setHealth();
+                            //                             }
+                            //                             
+                            //                             if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
+                            //                             {
+                            //                                 player.setHealth();
+                            //                             }
 
                             if(i == balloonList.size())
                                 i = 0;
                         }
 
-                        System.out.println(player.getScore() + " " + player.getHealth());
+                        System.out.println(player.getHealth());
                     }
 
                     public void keyTyped(KeyEvent e)
