@@ -18,7 +18,7 @@ public class Runner
 {
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
-    private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
+    private static ArrayList<Balloon>  balloonList = new ArrayList<Balloon>();
     private static ArrayList<String> balloonLetters = new ArrayList<String>();
     private static int[] balloonYCoordList = {440, 470, 500, 530, 560, 590, 620, 650, 680, 710, 740};
     private static int balloonCount = 0;
@@ -30,20 +30,24 @@ public class Runner
         JFrame frame = new JFrame();
         JPanel pane = new JPanel();
 
-        //Creates the 11 BalloonGUI Objects, Spikes and Bar Objects, and PlayerStatus Object
+        //Creates the 11 Balloon Objects, Spikes and Bar Objects, and PlayerStatus Object
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
-        BalloonGUI balloon1 = new BalloonGUI(440);
-        BalloonGUI balloon2 = new BalloonGUI(470);
-        BalloonGUI balloon3 = new BalloonGUI(500);
-        BalloonGUI balloon4 = new BalloonGUI(530);
-        BalloonGUI balloon5 = new BalloonGUI(560);
-        BalloonGUI balloon6 = new BalloonGUI(590);
-        BalloonGUI balloon7 = new BalloonGUI(620);
-        BalloonGUI balloon8 = new BalloonGUI(650);
-        BalloonGUI balloon9 = new BalloonGUI(680);
-        BalloonGUI balloon10 = new BalloonGUI(710);
-        BalloonGUI balloon11 = new BalloonGUI(740);
+        Balloon balloon1 = new Balloon(440);
+        Balloon balloon2 = new Balloon(470);
+        Balloon balloon3 = new Balloon(500);
+        Balloon balloon4 = new Balloon(530);
+        Balloon balloon5 = new Balloon(560);
+        Balloon balloon6 = new Balloon(590);
+        Balloon balloon7 = new Balloon(620);
+        Balloon balloon8 = new Balloon(650);
+        Balloon balloon9 = new Balloon(680);
+        Balloon balloon10 = new Balloon(710);
+        Balloon balloon11 = new Balloon(740);
+        Balloon balloon12 = new Balloon(750);
+        Balloon balloon13 = new Balloon(760);
+        Balloon balloon14 = new Balloon(770);
+        Balloon balloon15 = new Balloon(780);
 
         //Adds the assigned Letter from each balloon to an ArrayList of type String called balloonLetters. 
         balloonLetters.add(balloon1.getLetter());
@@ -57,8 +61,12 @@ public class Runner
         balloonLetters.add(balloon9.getLetter());
         balloonLetters.add(balloon10.getLetter());
         balloonLetters.add(balloon11.getLetter());
+        balloonLetters.add(balloon12.getLetter());
+        balloonLetters.add(balloon13.getLetter());
+        balloonLetters.add(balloon14.getLetter());
+        balloonLetters.add(balloon15.getLetter());
 
-        //Adds the balloons onto an ArrayList of type balloonGUI
+        //Adds the balloons onto an ArrayList of type balloon
         balloonList.add(balloon1);
         balloonList.add(balloon2);
         balloonList.add(balloon3);
@@ -70,6 +78,10 @@ public class Runner
         balloonList.add(balloon9);
         balloonList.add(balloon10);
         balloonList.add(balloon11);
+        balloonList.add(balloon12);
+        balloonList.add(balloon13);
+        balloonList.add(balloon14);
+        balloonList.add(balloon15);
 
         //Modifies the JFrame by naming the frame and setting it to be visible
         JFrame frameFirst = new JFrame("Welcome to the Balloon Game!");
@@ -88,7 +100,6 @@ public class Runner
         //paneFirst.add(tutorial);
         frameFirst.add(paneFirst);     
 
-        System.out.println(balloonLetters);
         class Action implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
@@ -119,6 +130,10 @@ public class Runner
                 pane.add(balloon9);
                 pane.add(balloon10);
                 pane.add(balloon11);
+                pane.add(balloon12);
+                pane.add(balloon13);
+                pane.add(balloon14);
+                pane.add(balloon15);
                 pane.add(sBB); 
 
                 //Focuses panel on keylistener
@@ -141,36 +156,30 @@ public class Runner
                 {
                     public void actionPerformed(ActionEvent event)
                     {
-                        balloon1.moveBy(0,1);
-                        balloon2.moveBy(0,1);
-                        balloon3.moveBy(0,1);
-                        balloon4.moveBy(0,1);
-                        balloon5.moveBy(0,1);
-                        balloon6.moveBy(0,1);
-                        balloon7.moveBy(0,1);
-                        balloon8.moveBy(0,1);
-                        balloon9.moveBy(0,1);
-                        balloon10.moveBy(0,1);
-                        balloon11.moveBy(0,1);
+                        balloon1.moveBy(1);
+                        balloon2.moveBy(1);
+                        balloon3.moveBy(1);
+                        balloon4.moveBy(1);
+                        balloon5.moveBy(1);
+                        balloon6.moveBy(1);
+                        balloon7.moveBy(1);
+                        balloon8.moveBy(1);
+                        balloon9.moveBy(1);
+                        balloon10.moveBy(1);
+                        balloon11.moveBy(1);
+                        balloon12.moveBy(1);
+                        balloon13.moveBy(1);
+                        balloon14.moveBy(1);
+                        balloon15.moveBy(1);
                         frame.repaint();
 
                         for(int i = 0; i < balloonList.size(); i++)
                         {
                             if(balloonList.get(i).getY() == 13)
-                            {     
-                                //Generates a random number from 0 to 25. That number represents one letter from the alphabet 
-                                int rdmLetterNum = (int) (Math.random() * 26);
-                                //Generates a random number from 30 to 900 to determine the X-coordinate for the balloon to spawn in
-                                int rdmXCoord = (int) (Math.random() * (900 - 30)) + 30;
-
-                                //Sets the visibility to false
+                            {                                //Sets the visibility to false
                                 pane.remove(balloonList.get(i));
 
-                                //Assign the X coordinate from the random generated number; the Y coordinate is from the array; letter is from the letter generator
-                                balloonList.get(i).setY(balloonYCoordList[i]);
-                                balloonList.get(i).setX(rdmXCoord);
-                                balloonList.get(i).setLetter(rdmLetterNum);
-
+                                balloonList.get(i).reset(balloonYCoordList[i]);
                                 //Replace the previous balloon with a new balloon with new location and letter
                                 balloonLetters.set(i, balloonList.get(i).getLetter());
 
@@ -245,7 +254,7 @@ public class Runner
                 pane.addKeyListener(new Keys());
 
                 // Random millisecond from 20 to 100 for balloon speed
-                int Delay = 15;
+                int Delay = 20;
 
                 //Creates Timer Objects
                 Timer t2 = new Timer(Delay, listener);
