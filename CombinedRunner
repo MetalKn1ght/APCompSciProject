@@ -8,9 +8,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
-/**
- * Write a description of class Runner here.
- * 
+/* 
  * @author (Jason W,Michael Bagamian) 
  * @version (6/3/17)
  */
@@ -101,7 +99,7 @@ public class Runner
                 pane.setFocusable(true);
                 pane.requestFocusInWindow();
                 pane.setFocusTraversalKeysEnabled(false);
-                System.out.println(balloonList.get(balloonCount).getLetter());
+                
                 //sets background on game frame
                 frame.setBackground(Color.blue);
 
