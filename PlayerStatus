@@ -1,6 +1,5 @@
-
 /**
- * Write a description of class PlayerStatus here.
+ * 
  * 
  * Lashan Wijayawickrama
  * 5/15/17
@@ -16,12 +15,12 @@ public class PlayerStatus
         score = 0;
 
     }
-
+    //not implemented, but an idea
     public void setHealth()
     {
         health--;
     }
-
+    //not implemented, but an idea
     public int getHealth()
     {
         return health;
@@ -37,5 +36,3 @@ public class PlayerStatus
         return score;
     }    
 }
-
-  
