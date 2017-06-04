@@ -1,8 +1,8 @@
 /**
- * Write a description of class SpikeBarBackground here.
  * 
- * @author (Jason Lin) 
- * @version (a version number or a date)
+ * 
+ * @author (Jason W) 
+ * @version (6/4/17)
  */
 
 import java.awt.*;
@@ -12,7 +12,9 @@ public class SpikeBarBackground
 {
     private int[] x= {-40, -20, 0};
     private int[] y= {0, 25, 0};
-    
+    private Object obj; 
+    private Object obj2;
+
     public void draw(Graphics2D g2)
     {
         //Draws the Spikes
@@ -23,12 +25,14 @@ public class SpikeBarBackground
             x[2] = x[2]+40;
 
             g2.setColor(Color.black);
+
             g2.fillPolygon(x,y,x.length);
         }
 
         //Draws the Bar
-        Rectangle rect = new Rectangle(0, 25, 5000, 100);
+        Rectangle rect = new Rectangle(0, 75, 5000, 100);
         g2.setColor(Color.pink);
         g2.draw(rect);
+
     }
 }
