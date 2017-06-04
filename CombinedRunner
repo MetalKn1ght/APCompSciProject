@@ -169,7 +169,7 @@ public class Runner4
                             num++;          
                         }
                         //game ends after reaching _ points, the challenge is to get the best time
-                        if((startTime-stopTime)/10000==10000)
+                        if((startTime-stopTime)/10000==60)
                         {                                                        
                             pane.setVisible(false); //sets game panel invisible
                             frame.getContentPane().add(panelOver); //adds game over panel as main panel
