@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
  * @author (Jason W,Michael Bagamian) 
  * @version (6/3/17)
  */
-public class Runner4
+public class Runner
 {
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
@@ -29,6 +29,16 @@ public class Runner4
         JFrame frame = new JFrame();
         JPanel pane = new JPanel();
         JPanel panelOver=new JPanel();
+        JPanel paneFirst = new JPanel();
+
+        //Title
+        JTextArea title=new JTextArea("Welcome to the Balloon Game!");
+        title.setBounds(1100,200,400,50);
+        //create new Font
+        Font font = new Font("Arial", Font.BOLD,25);
+
+        //set font for JTextField
+        title.setFont(font);
         //Creates the Balloon Spanwer, Spikes, and Bar
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
@@ -39,30 +49,33 @@ public class Runner4
             int x = (int) (Math.random() * (100 - 30) + 30+100*(n+1));
             balloonList.add(new BalloonGUI(x,400));
         }
-        
 
-        //Modifies the JFrame and 
+        //Modifies the JFrame and paneFirst
+        paneFirst.setLayout(null);
+        paneFirst.setBackground(Color.red);
         JFrame frameFirst = new JFrame("Welcome to the Balloon Game!");
         frameFirst.setVisible(true);
         frameFirst.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameFirst.setSize(FRAME_WIDTH, FRAME_HEIGHT);
 
-        //Creates buttons objects
-        JPanel paneFirst = new JPanel();
+        //Creates buttons objects        
         JButton play = new JButton("Moderate");
         JButton play2 = new JButton("Difficult");
-        JButton tutorial = new JButton("How To Play");
+        play.setBounds(1100,500,200,100);
+        play2.setBounds(1450,500,200,100);
 
+        //Adds components to beginning screen
         paneFirst.add(play);
         paneFirst.add(play2);
-        paneFirst.add(tutorial);
+        paneFirst.add(title);
         frameFirst.add(paneFirst);     
 
         class Action implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
-
+                //starts time in the game
+                startTime = System.currentTimeMillis();
                 //Lays out how the frame will look like
                 LayoutManager overlay = new OverlayLayout(pane);
                 pane.setLayout(overlay);
@@ -97,8 +110,7 @@ public class Runner4
                 {
                     public void actionPerformed(ActionEvent event)
                     {   
-                        //starts time in the game
-                        startTime = System.currentTimeMillis();
+
                         //moves balloons up by 1
                         balloonList.get(balloonCount).moveBy(0,1);
                         balloonList.get(balloonCount+1).moveBy(0,1);
@@ -112,7 +124,9 @@ public class Runner4
                         //at the bottom of the spikes
                         if(balloonList.get(balloonCount).getY()==13)
                         {
+
                             //adds balloons for respawn
+
                             for(int n=0;n<8;n++)
                             {
                                 int x = (int) (Math.random() * (100 - 30) + 30+100*(n+1));
@@ -134,10 +148,10 @@ public class Runner4
                             pane.add(balloonList.get(balloonCount+6));
                             pane.add(balloonList.get(balloonCount+7));
                             frame.setBackground(Color.gray);
-                            //keeps track of time throughout this action
-                            stopTime = System.currentTimeMillis();
 
                         }          
+                        //keeps track of time throughout this action
+                        stopTime = System.currentTimeMillis();
 
                     }
                 }   
@@ -169,13 +183,17 @@ public class Runner4
                             num++;          
                         }
                         //game ends after reaching _ points, the challenge is to get the best time
-                        if((startTime-stopTime)/10000==60)
+                        if(player.getScore()==50)
                         {                                                        
-                            pane.setVisible(false); //sets game panel invisible
+                            pane.setVisible(false); //sets game panel invisible                                                                        
                             frame.getContentPane().add(panelOver); //adds game over panel as main panel
+                            panelOver.setBackground(Color.pink);
                             JTextArea textArea = new JTextArea("You have scored "+player.getScore()+" points in "
-                                    +(startTime-stopTime)/1000+" seconds. To play again, restart runner method",5, 20); //Description of balloon achievements
+                                    +(stopTime-startTime)/1000+" seconds. To play again, restart runner method :)",5, 20); //Description of balloon achievements
                             panelOver.add(textArea); 
+                            textArea.setBounds(1100,200,400,20);
+                            Font font = new Font("Arial", Font.BOLD,30);
+                            textArea.setFont(font);
                             textArea.setEditable(false);
                             //to reset game you must run main method again
                         }
@@ -203,6 +221,8 @@ public class Runner4
         {
             public void actionPerformed(ActionEvent e)
             {
+                //starts time in the game
+                startTime = System.currentTimeMillis();
                 ArrayList<Balloon>  balloonList = new ArrayList<Balloon>();
                 ArrayList<String> balloonLetters = new ArrayList<String>();
                 int[] balloonYCoordList = {440, 480, 540, 580, 620, 660, 700, 740, 780, 800, 830, 860, 890, 900, 910};
@@ -267,8 +287,10 @@ public class Runner4
                 //Lays out how the frame will look like
                 LayoutManager overlay = new OverlayLayout(pane);
                 pane.setLayout(overlay);
+                pane.setBackground(Color.blue);
 
                 //Adds the Pane onto the Frame
+                frame.setBackground(Color.blue);
                 frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
                 frame.add(pane);
                 frame.setTitle("Balloons Moving");
@@ -298,19 +320,9 @@ public class Runner4
                 pane.requestFocusInWindow();
                 pane.setFocusTraversalKeysEnabled(false);
 
-                //Imports the background image and adds it onto the panel
-                ImageIcon imageIcon = new ImageIcon("images.jpg"); //url: http://bhstorm.com/beautiful-sky-wallpapers-mobile/
-                Image imag = imageIcon.getImage();
-                Image img2 = imag.getScaledInstance(FRAME_WIDTH,FRAME_HEIGHT, java.awt.Image.SCALE_SMOOTH); 
-                ImageIcon img = new ImageIcon(img2);
-                JLabel image = new JLabel(img);
-
-                //Moves the image to the back
-                pane.add(image,BorderLayout.CENTER);
-
                 //Balloons are mobing up here (NOTE: Working, but needs to be modified for working BalloonSpawningListener)
                 class BalloonMovingListener implements ActionListener
-                {
+                {                    
                     public void actionPerformed(ActionEvent event)
                     {
                         balloon1.moveBy(1);
@@ -328,10 +340,10 @@ public class Runner4
                         balloon13.moveBy(1);
                         balloon14.moveBy(1);
                         balloon15.moveBy(1);
-                        frame.repaint();
-
+                        frame.repaint();                        
                         for(int i = 0; i < balloonList.size(); i++)
                         {
+
                             if(balloonList.get(i).getY() == 13)
                             {                                //Sets the visibility to false
                                 pane.remove(balloonList.get(i));
@@ -340,9 +352,8 @@ public class Runner4
                                 //Replace the previous balloon with a new balloon with new location and letter
                                 balloonLetters.set(i, balloonList.get(i).getLetter());
 
-                                //Add the balloon onto the screen and put the imported image to the background
+                                //Add the balloon onto the screen 
                                 pane.add(balloonList.get(i));
-                                pane.add(image,BorderLayout.CENTER);
 
                                 //Turn the visibility back on
                                 balloonList.get(i).setVisible(true);
@@ -352,13 +363,14 @@ public class Runner4
                             }
 
                             if(i == balloonList.size())
-                                i = 0;
+                            {
+                                i = 0;                               
+                            }
 
-                            //                             if(player.getHealth() <= 0)
-                            //                             {
-                            //                                 balloonList.get(i).setVisible(false);
-                            //                             }
                         }
+
+                        //keeps track of time throughout this action
+                        stopTime = System.currentTimeMillis();
                     }
                 }
 
@@ -366,6 +378,16 @@ public class Runner4
                 class Keys implements KeyListener
                 {
                     public void keyPressed(KeyEvent e)
+                    {
+
+                    }
+
+                    public void keyTyped(KeyEvent e)
+                    {
+
+                    }
+
+                    public void keyReleased(KeyEvent e)
                     {
                         //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
                         for(int i = 0; i < balloonList.size(); i++)
@@ -376,31 +398,26 @@ public class Runner4
                                 player.setScore();
                                 frame.repaint();
                             }
-                            // 
-                            //                             if(balloonList.get(i).getY() > 75)
-                            //                             {
-                            //                                 player.setHealth();
-                            //                             }
-                            //                             
-                            //                             if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() != KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
-                            //                             {
-                            //                                 player.setHealth();
-                            //                             }
 
                             if(i == balloonList.size())
                                 i = 0;
                         }
 
-                        System.out.println(player.getHealth());
-                    }
-
-                    public void keyTyped(KeyEvent e)
-                    {
-
-                    }
-
-                    public void keyReleased(KeyEvent e)
-                    {
+                        //game ends after reaching _ points, the challenge is to get the best time
+                        if(player.getScore()==50)
+                        {                                                        
+                            pane.setVisible(false); //sets game panel invisible                                                                         
+                            frame.getContentPane().add(panelOver); //adds game over panel as main panel
+                            panelOver.setBackground(Color.pink);
+                            JTextArea textArea = new JTextArea("You have scored "+player.getScore()+" points in "
+                                    +(stopTime-startTime)/1000+" seconds. To play again, restart runner method :)",5, 20); //Description of balloon achievements
+                            panelOver.add(textArea); 
+                            textArea.setBounds(1100,200,400,20);
+                            Font font = new Font("Arial", Font.BOLD,30);
+                            textArea.setFont(font);
+                            textArea.setEditable(false);
+                            //to reset game you must run main method again
+                        }
                     }
                 }
 
@@ -425,5 +442,4 @@ public class Runner4
         play2.addActionListener(new Action());
     }
 }
-
 
