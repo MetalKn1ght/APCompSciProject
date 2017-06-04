@@ -1,8 +1,8 @@
 /**
- * Write a description of class SpikeBarBackgroundGUI here.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * 
+ * @author (Michael Bagamian) 
+ * @version (6/4/17)
  */
 
 import javax.swing.*;
@@ -12,6 +12,7 @@ public class SpikeBarBackgroundGUI extends JPanel
 {
     public void paintComponent(Graphics g)
     {
+        //paints the spikes and rectangles
         Graphics2D g2 = (Graphics2D) g;
         SpikeBarBackground sBB = new SpikeBarBackground();
         sBB.draw(g2);
