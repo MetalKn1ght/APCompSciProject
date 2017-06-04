@@ -19,7 +19,6 @@ public class Runner4
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
     private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
-    private static ArrayList<String> balloonLetters = new ArrayList<String>();
     private static int balloonCount = 0;
     private static PlayerStatus player=new  PlayerStatus();
     private static long startTime;
@@ -40,7 +39,7 @@ public class Runner4
             int x = (int) (Math.random() * (100 - 30) + 30+100*(n+1));
             balloonList.add(new BalloonGUI(x,400));
         }
-        balloonLetters.add(balloonList.get(balloonCount).getLetter());
+        
 
         //Modifies the JFrame and 
         JFrame frameFirst = new JFrame("Welcome to the Balloon Game!");
@@ -170,7 +169,7 @@ public class Runner4
                             num++;          
                         }
                         //game ends after reaching _ points, the challenge is to get the best time
-                        if(player.getScore()==5)
+                        if((stopTime-startTime)/10000==10000)
                         {                                                        
                             pane.setVisible(false); //sets game panel invisible
                             frame.getContentPane().add(panelOver); //adds game over panel as main panel
