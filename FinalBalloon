@@ -1,5 +1,6 @@
 /**
- * Write a description of class BalloonGUI here.
+ * Write a description of class Balloon here.
+ * Creates a balloon object and draws it out. 
  * 
  * @author (Jason) 
  * @version (5/11/17)
@@ -13,10 +14,13 @@ public class Balloon extends JComponent
     private int x;
     private int y;
     private boolean popped;
+    private String letter;
+    
     private final int HEIGHT = 25; 
     private final int WIDTH = 35; 
-    private String letter;
+
     private int rdmNum = (int) (Math.random() * 26);
+    
     private Color color = new Color((int) (Math.random() * 206 + 50), (int) (Math.random() * 206 + 50), (int) (Math.random() * 206 + 50));
 
     private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}; 
@@ -67,11 +71,13 @@ public class Balloon extends JComponent
         return x;
     }
     
+    //Returns wheather if the balloon is popped or not in values of true and false
     public boolean isPopped()
     {
         return popped;
     }
     
+    //Changes the status of the balloon through it's popping values
     public void setPopped(boolean tf)
     {
         popped = tf;
