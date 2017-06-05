@@ -126,20 +126,20 @@ public class FinalRunner
                         //at the bottom of the spikes
                         if(balloonList.get(balloonCount).getY()==13)
                         {
-
                             //adds balloons for respawn
-
                             for(int n=0;n<8;n++)
                             {
                                 int x = (int) (Math.random() * (100 - 30) + 30+100*(n+1));
                                 balloonList.add(new BalloonGUI(x,400));
                             }
+
                             //"pops" the balloon to make it invisible
                             for(int num=0;num<balloonList.size()-8;num++)
                             {
                                 balloonList.get(num).setVisible(false);
                             }
                             balloonCount=balloonCount+8;
+
                             //adds respawned balloons to game panel
                             pane.add(balloonList.get(balloonCount));
                             pane.add(balloonList.get(balloonCount+1));
@@ -154,7 +154,6 @@ public class FinalRunner
                         }          
                         //keeps track of time throughout this action
                         stopTime = System.currentTimeMillis();
-
                     }
                 }   
 
@@ -163,13 +162,12 @@ public class FinalRunner
                 {
                     public void keyPressed(KeyEvent e)
                     {
-
                     }                                           
 
                     public void keyTyped(KeyEvent e)
                     {
-
                     }
+
                     //if correct key is released within the drawn rectangle, the balloon will "pop" 
                     public void keyReleased(KeyEvent e)
                     {
@@ -215,11 +213,10 @@ public class FinalRunner
 
                 //Starts the BalloonMoving Action 
                 t2.start();
-
             }
         }
 
-        //moderate game mode 
+        //Moderate game mode 
         class Action2 implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
@@ -255,11 +252,12 @@ public class FinalRunner
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
                 frame.setVisible(true);
 
-                //Adds spikes and balloon onto the panel
+                //Adds the balloons onto the screen
                 for(int i = 0; i < balloonList.size(); i++)
                 {
                     pane.add(balloonList.get(i));
                 }
+                //Adds spikes and balloon onto the panel
                 pane.add(sBB); 
 
                 //Focuses panel on keylistener
@@ -282,9 +280,9 @@ public class FinalRunner
                 {
                     public void actionPerformed(ActionEvent event)
                     {
+                        //Maves all the balloons
                         for(int i = 0; i < balloonList.size(); i++)
                         {
-                            //Moves the balloon up
                             balloonList.get(i).moveBy(1);
                             balloonList.get(i).setVisible(true);
                             frame.repaint();
@@ -292,10 +290,16 @@ public class FinalRunner
 
                         for(int i = 0; i < balloonList.size(); i++)
                         {
+                            //If the balloon has not yet been popped and has hit the spikes, player loses health and a new balloon is made
                             if(balloonList.get(i).getY() == 13 && balloonList.get(i).isPopped() == false)
                             {   
+                                //Player loses health
                                 player.setHealth();
+
+                                //Removes the balloon
                                 pane.remove(balloonList.get(i));
+
+                                //Resents the balloon
                                 balloonList.get(i).reset(balloonYCoordList[i]);
                                 balloonList.get(i).setPopped(false);
 
@@ -306,15 +310,20 @@ public class FinalRunner
                                 pane.add(balloonList.get(i));
                                 pane.add(image,BorderLayout.CENTER);
 
+                                //Turn the balloon's visibility on
                                 balloonList.get(i).setVisible(true);
 
                                 //Repaint the frame
                                 frame.repaint();
                             }
 
+                            //If balloon has reached the spikes and has been popped
                             if(balloonList.get(i).getY() == 13 && balloonList.get(i).isPopped() == true)
                             {
+                                //Removes balloon from screen
                                 pane.remove(balloonList.get(i));
+                                
+                                //Resets the balloon
                                 balloonList.get(i).reset(balloonYCoordList[i]);
                                 balloonList.get(i).setPopped(false);
 
@@ -325,13 +334,14 @@ public class FinalRunner
                                 pane.add(balloonList.get(i));
                                 pane.add(image,BorderLayout.CENTER);
 
+                                //Turns the balloon's visibility on
                                 balloonList.get(i).setVisible(true);
-                                System.out.println(player.getHealth());
 
                                 //Repaint the frame
                                 frame.repaint();
                             }
 
+                            //If the cycle ends, we restart it
                             if(i == balloonList.size())
                                 i = 0;
 
@@ -366,6 +376,7 @@ public class FinalRunner
                                 frame.repaint();
                             }
 
+                            //Restarts the cyble
                             if(i == balloonList.size())
                                 i = 0;
                         }
@@ -384,7 +395,7 @@ public class FinalRunner
                 ActionListener listener = new BalloonMovingListener();
                 pane.addKeyListener(new Keys());
 
-                //Dealy for 8ms
+                //Dealy for 10ms
                 int Delay = 8;
 
                 //Creates Timer Objects
@@ -394,9 +405,11 @@ public class FinalRunner
                 t2.start();
             }
         }
-        play.addActionListener(new Action2());
 
+        //Plays the difficult version
+        play.addActionListener(new Action2());
+        
+        //Plays the Moderate version
         play2.addActionListener(new Action());
     }
 }
-
