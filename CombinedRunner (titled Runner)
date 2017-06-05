@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.OverlayLayout;
@@ -8,25 +7,29 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+
 /* 
  * @author (Jason W,Michael Bagamian) 
  * @version (6/3/17)
  */
-public class Runner
+public class FinalRunner
 {
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
+
     private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
+    private static ArrayList<String> balloonLetters = new ArrayList<String>();
+
     private static int balloonCount = 0;
-    private static PlayerStatus player=new  PlayerStatus();
     private static long startTime;
     private static long stopTime;
+
     public static void main(String[] args)
     { 
         //Creates the Frame and the Pane
         JFrame frame = new JFrame();
         JPanel pane = new JPanel();
-        JPanel panelOver=new JPanel();
+        JPanel panelOver = new JPanel();
         JPanel paneFirst = new JPanel();
 
         //Title
@@ -37,6 +40,7 @@ public class Runner
 
         //set font for JTextField
         title.setFont(font);
+
         //Creates the Balloon Spanwer, Spikes, and Bar
         PlayerStatus player = new PlayerStatus();
         SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
@@ -99,7 +103,7 @@ public class Runner
                 pane.setFocusable(true);
                 pane.requestFocusInWindow();
                 pane.setFocusTraversalKeysEnabled(false);
-                
+
                 //sets background on game frame
                 frame.setBackground(Color.blue);
 
@@ -108,7 +112,6 @@ public class Runner
                 {
                     public void actionPerformed(ActionEvent event)
                     {   
-
                         //moves balloons up by 1
                         balloonList.get(balloonCount).moveBy(0,1);
                         balloonList.get(balloonCount+1).moveBy(0,1);
@@ -119,6 +122,7 @@ public class Runner
                         balloonList.get(balloonCount+6).moveBy(0,1);
                         balloonList.get(balloonCount+7).moveBy(0,1);
                         frame.repaint();
+
                         //at the bottom of the spikes
                         if(balloonList.get(balloonCount).getY()==13)
                         {
@@ -214,81 +218,37 @@ public class Runner
 
             }
         }
+
         //moderate game mode 
         class Action2 implements ActionListener
         {
             public void actionPerformed(ActionEvent e)
             {
-                //starts time in the game
-                startTime = System.currentTimeMillis();
                 ArrayList<Balloon>  balloonList = new ArrayList<Balloon>();
                 ArrayList<String> balloonLetters = new ArrayList<String>();
-                int[] balloonYCoordList = {440, 480, 540, 580, 620, 660, 700, 740, 780, 800, 830, 860, 890, 900, 910};
-                int balloonCount = 0;
-                int balloonYCoord = 450;
-                //Creates the 11 Balloon Objects, Spikes and Bar Objects, and PlayerStatus Object
+
+                int[] balloonYCoordList = {440, 480, 540, 555, 580, 620, 660, 700, 720, 740, 780, 800, 830, 860, 890, 900, 910, 910, 915, 920};
+
                 PlayerStatus player = new PlayerStatus();
                 SpikeBarBackgroundGUI sBB = new SpikeBarBackgroundGUI();
-                Balloon balloon1 = new Balloon(440);
-                Balloon balloon2 = new Balloon(470);
-                Balloon balloon3 = new Balloon(500);
-                Balloon balloon4 = new Balloon(530);
-                Balloon balloon5 = new Balloon(560);
-                Balloon balloon6 = new Balloon(590);
-                Balloon balloon7 = new Balloon(620);
-                Balloon balloon8 = new Balloon(650);
-                Balloon balloon9 = new Balloon(680);
-                Balloon balloon10 = new Balloon(710);
-                Balloon balloon11 = new Balloon(740);
-                Balloon balloon12 = new Balloon(750);
-                Balloon balloon13 = new Balloon(760);
-                Balloon balloon14 = new Balloon(770);
-                Balloon balloon15 = new Balloon(780);
+
+                //Creates Balloons and adds them onto a list
+                for(int i = 0; i < 20; i++)
+                {
+                    balloonList.add(new Balloon(balloonYCoordList[i]));
+                }
 
                 //Adds the assigned Letter from each balloon to an ArrayList of type String called balloonLetters. 
-                balloonLetters.add(balloon1.getLetter());
-                balloonLetters.add(balloon2.getLetter());
-                balloonLetters.add(balloon3.getLetter());
-                balloonLetters.add(balloon4.getLetter());
-                balloonLetters.add(balloon5.getLetter());
-                balloonLetters.add(balloon6.getLetter());
-                balloonLetters.add(balloon7.getLetter());
-                balloonLetters.add(balloon8.getLetter());
-                balloonLetters.add(balloon9.getLetter());
-                balloonLetters.add(balloon10.getLetter());
-                balloonLetters.add(balloon11.getLetter());
-                balloonLetters.add(balloon12.getLetter());
-                balloonLetters.add(balloon13.getLetter());
-                balloonLetters.add(balloon14.getLetter());
-                balloonLetters.add(balloon15.getLetter());
-
-                //Adds the balloons onto an ArrayList of type balloon
-                balloonList.add(balloon1);
-                balloonList.add(balloon2);
-                balloonList.add(balloon3);
-                balloonList.add(balloon4);
-                balloonList.add(balloon5);
-                balloonList.add(balloon6);
-                balloonList.add(balloon7);
-                balloonList.add(balloon8);
-                balloonList.add(balloon9);
-                balloonList.add(balloon10);
-                balloonList.add(balloon11);
-                balloonList.add(balloon12);
-                balloonList.add(balloon13);
-                balloonList.add(balloon14);
-                balloonList.add(balloon15);
-
-                String letter = balloon1.getLetter();
-                char let = letter.charAt(0);
+                for(int i = 0; i < balloonList.size(); i++)
+                {
+                    balloonLetters.add(balloonList.get(i).getLetter());
+                }
 
                 //Lays out how the frame will look like
                 LayoutManager overlay = new OverlayLayout(pane);
                 pane.setLayout(overlay);
-                pane.setBackground(Color.blue);
 
                 //Adds the Pane onto the Frame
-                frame.setBackground(Color.blue);
                 frame.setSize(FRAME_WIDTH, FRAME_HEIGHT);
                 frame.add(pane);
                 frame.setTitle("Balloons Moving");
@@ -296,21 +256,10 @@ public class Runner
                 frame.setVisible(true);
 
                 //Adds spikes and balloon onto the panel
-                pane.add(balloon1);
-                pane.add(balloon2);
-                pane.add(balloon3);
-                pane.add(balloon4);
-                pane.add(balloon5);
-                pane.add(balloon6);
-                pane.add(balloon7);
-                pane.add(balloon8);
-                pane.add(balloon9);
-                pane.add(balloon10);
-                pane.add(balloon11);
-                pane.add(balloon12);
-                pane.add(balloon13);
-                pane.add(balloon14);
-                pane.add(balloon15);
+                for(int i = 0; i < balloonList.size(); i++)
+                {
+                    pane.add(balloonList.get(i));
+                }
                 pane.add(sBB); 
 
                 //Focuses panel on keylistener
@@ -318,57 +267,85 @@ public class Runner
                 pane.requestFocusInWindow();
                 pane.setFocusTraversalKeysEnabled(false);
 
+                //Imports the background image and adds it onto the panel
+                ImageIcon imageIcon = new ImageIcon("images.jpg"); //url: http://bhstorm.com/beautiful-sky-wallpapers-mobile/
+                Image imag = imageIcon.getImage();
+                Image img2 = imag.getScaledInstance(FRAME_WIDTH,FRAME_HEIGHT, java.awt.Image.SCALE_SMOOTH); 
+                ImageIcon img = new ImageIcon(img2);
+                JLabel image = new JLabel(img);
+
+                //Moves the image to the back
+                pane.add(image,BorderLayout.CENTER);
+
                 //Balloons are mobing up here (NOTE: Working, but needs to be modified for working BalloonSpawningListener)
                 class BalloonMovingListener implements ActionListener
-                {                    
+                {
                     public void actionPerformed(ActionEvent event)
                     {
-                        balloon1.moveBy(1);
-                        balloon2.moveBy(1);
-                        balloon3.moveBy(1);
-                        balloon4.moveBy(1);
-                        balloon5.moveBy(1);
-                        balloon6.moveBy(1);
-                        balloon7.moveBy(1);
-                        balloon8.moveBy(1);
-                        balloon9.moveBy(1);
-                        balloon10.moveBy(1);
-                        balloon11.moveBy(1);
-                        balloon12.moveBy(1);
-                        balloon13.moveBy(1);
-                        balloon14.moveBy(1);
-                        balloon15.moveBy(1);
-                        frame.repaint();                        
                         for(int i = 0; i < balloonList.size(); i++)
                         {
+                            //Moves the balloon up
+                            balloonList.get(i).moveBy(1);
+                            balloonList.get(i).setVisible(true);
+                            frame.repaint();
+                        }
 
-                            if(balloonList.get(i).getY() == 13)
-                            {                                //Sets the visibility to false
+                        for(int i = 0; i < balloonList.size(); i++)
+                        {
+                            if(balloonList.get(i).getY() == 13 && balloonList.get(i).isPopped() == false)
+                            {   
+                                player.setHealth();
                                 pane.remove(balloonList.get(i));
-
                                 balloonList.get(i).reset(balloonYCoordList[i]);
+                                balloonList.get(i).setPopped(false);
+
                                 //Replace the previous balloon with a new balloon with new location and letter
                                 balloonLetters.set(i, balloonList.get(i).getLetter());
 
-                                //Add the balloon onto the screen 
+                                //Add the balloon onto the screen and put the imported image to the background
                                 pane.add(balloonList.get(i));
+                                pane.add(image,BorderLayout.CENTER);
 
-                                //Turn the visibility back on
                                 balloonList.get(i).setVisible(true);
 
                                 //Repaint the frame
                                 frame.repaint();
                             }
 
-                            if(i == balloonList.size())
+                            if(balloonList.get(i).getY() == 13 && balloonList.get(i).isPopped() == true)
                             {
-                                i = 0;                               
+                                pane.remove(balloonList.get(i));
+                                balloonList.get(i).reset(balloonYCoordList[i]);
+                                balloonList.get(i).setPopped(false);
+
+                                //Replace the previous balloon with a new balloon with new location and letter
+                                balloonLetters.set(i, balloonList.get(i).getLetter());
+
+                                //Add the balloon onto the screen and put the imported image to the background
+                                pane.add(balloonList.get(i));
+                                pane.add(image,BorderLayout.CENTER);
+
+                                balloonList.get(i).setVisible(true);
+                                System.out.println(player.getHealth());
+
+                                //Repaint the frame
+                                frame.repaint();
                             }
 
-                        }
+                            if(i == balloonList.size())
+                                i = 0;
 
-                        //keeps track of time throughout this action
-                        stopTime = System.currentTimeMillis();
+                            //Shows end result
+                            if(player.getHealth() <= 0)
+                            {
+                                for(int j = 0; j < balloonList.size(); j++)
+                                {
+                                    balloonList.get(j).setVisible(false);
+                                }
+                                JOptionPane.showMessageDialog(frame, "You scored " + player.getScore() + ".");
+                                System.exit(0);
+                            }
+                        }
                     }
                 }
 
@@ -377,56 +354,38 @@ public class Runner
                 {
                     public void keyPressed(KeyEvent e)
                     {
-
-                    }
-
-                    public void keyTyped(KeyEvent e)
-                    {
-
-                    }
-
-                    public void keyReleased(KeyEvent e)
-                    {
                         //If key pressed DOES correspond with the assigned balloon letter, the player earns point and the balloon is popped
                         for(int i = 0; i < balloonList.size(); i++)
                         {
-                            if(balloonList.get(i).getY() > 13 && balloonList.get(i).getY() <= 75 && e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
+                            //Adds score and removes them if balloon is on screen
+                            if(e.getKeyCode() == KeyEvent.getExtendedKeyCodeForChar(balloonLetters.get(i).charAt(0)))
                             {
-                                pane.remove(balloonList.get(i));
                                 player.setScore();
+                                pane.remove(balloonList.get(i));
+                                balloonList.get(i).setPopped(true);
                                 frame.repaint();
                             }
 
                             if(i == balloonList.size())
                                 i = 0;
                         }
+                    }
 
-                        //game ends after reaching _ points, the challenge is to get the best time
-                        if(player.getScore()==50)
-                        {                                                        
-                            pane.setVisible(false); //sets game panel invisible                                                                         
-                            frame.getContentPane().add(panelOver); //adds game over panel as main panel
-                            panelOver.setBackground(Color.pink);
-                            JTextArea textArea = new JTextArea("You have scored "+player.getScore()+" points in "
-                                    +(stopTime-startTime)/1000+" seconds. To play again, restart runner method :)",5, 20); //Description of balloon achievements
-                            panelOver.add(textArea); 
-                            textArea.setBounds(1100,200,400,20);
-                            Font font = new Font("Arial", Font.BOLD,30);
-                            textArea.setFont(font);
-                            textArea.setEditable(false);
-                            //to reset game you must run main method again
-                        }
+                    public void keyTyped(KeyEvent e)
+                    {
+                    }
+
+                    public void keyReleased(KeyEvent e)
+                    {
                     }
                 }
 
                 //Creates TimerListener Objects
-
                 ActionListener listener = new BalloonMovingListener();
-
                 pane.addKeyListener(new Keys());
 
-                // Random millisecond from 20 to 100 for balloon speed
-                int Delay = 20;
+                //Dealy for 8ms
+                int Delay = 8;
 
                 //Creates Timer Objects
                 Timer t2 = new Timer(Delay, listener);
