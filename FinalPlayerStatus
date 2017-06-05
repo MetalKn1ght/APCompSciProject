@@ -1,12 +1,15 @@
-/* 
- * @author (Jason, Lashawn) 
- * @version (6/3/17)
+
+/**
+ * This class creates the data for the player's stats in their game
+ *  
+ * Lashan Wijayawickrama
+ * 5/15/17
  */
 public class PlayerStatus
 {
     private int health;
     private int score;
-    
+
     //Default Constructor: Player starts with 3 health and 0 points
     public PlayerStatus()
     {
@@ -25,7 +28,7 @@ public class PlayerStatus
     {
         return health;
     }
-  
+
     //Adds score
     public void setScore()
     {
