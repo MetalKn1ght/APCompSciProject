@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
 /* 
  * This Class runs the entire game
  * 
- * @author (Jason Lin,Michael Bagamian) 
+ * @author (Jason W,Michael Bagamian) 
  * @version (6/3/17)
  */
 public class FinalRunner
@@ -19,7 +19,7 @@ public class FinalRunner
     private static final int FRAME_WIDTH = 3000;
     private static final int FRAME_HEIGHT = 1000;
 
-    private static ArrayList<BalloonGUI>  balloonList = new ArrayList<BalloonGUI>();
+    private static ArrayList<Balloon>  balloonList = new ArrayList<Balloon>();
     private static ArrayList<String> balloonLetters = new ArrayList<String>();
 
     private static int balloonCount = 0;
@@ -51,7 +51,7 @@ public class FinalRunner
         for(int n=0;n<8;n++)
         {
             int x = (int) (Math.random() * (100 - 30) + 30+100*(n+1));
-            balloonList.add(new BalloonGUI(x,400));
+            balloonList.add(new Balloon(400));
         }
 
         //Modifies the JFrame and paneFirst
@@ -115,14 +115,14 @@ public class FinalRunner
                     public void actionPerformed(ActionEvent event)
                     {   
                         //moves balloons up by 1
-                        balloonList.get(balloonCount).moveBy(0,1);
-                        balloonList.get(balloonCount+1).moveBy(0,1);
-                        balloonList.get(balloonCount+2).moveBy(0,1);
-                        balloonList.get(balloonCount+3).moveBy(0,1);
-                        balloonList.get(balloonCount+4).moveBy(0,1);
-                        balloonList.get(balloonCount+5).moveBy(0,1);
-                        balloonList.get(balloonCount+6).moveBy(0,1);
-                        balloonList.get(balloonCount+7).moveBy(0,1);
+                        balloonList.get(balloonCount).moveBy(1);
+                        balloonList.get(balloonCount+1).moveBy(1);
+                        balloonList.get(balloonCount+2).moveBy(1);
+                        balloonList.get(balloonCount+3).moveBy(1);
+                        balloonList.get(balloonCount+4).moveBy(1);
+                        balloonList.get(balloonCount+5).moveBy(1);
+                        balloonList.get(balloonCount+6).moveBy(1);
+                        balloonList.get(balloonCount+7).moveBy(1);
                         frame.repaint();
 
                         //at the bottom of the spikes
@@ -132,7 +132,7 @@ public class FinalRunner
                             for(int n=0;n<8;n++)
                             {
                                 int x = (int) (Math.random() * (100 - 30) + 30+100*(n+1));
-                                balloonList.add(new BalloonGUI(x,400));
+                                balloonList.add(new Balloon(400));
                             }
 
                             //"pops" the balloon to make it invisible
@@ -415,4 +415,3 @@ public class FinalRunner
         play2.addActionListener(new Action());
     }
 }
-
