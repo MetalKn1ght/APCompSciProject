@@ -1,5 +1,5 @@
 /**
- * 
+ * Write a description of class BalloonGUI here.
  * 
  * @author (Jason) 
  * @version (5/11/17)
@@ -12,11 +12,11 @@ public class Balloon extends JComponent
 {
     private int x;
     private int y;
+    private boolean popped;
     private final int HEIGHT = 25; 
     private final int WIDTH = 35; 
     private String letter;
     private int rdmNum = (int) (Math.random() * 26);
-    
     private Color color = new Color((int) (Math.random() * 206 + 50), (int) (Math.random() * 206 + 50), (int) (Math.random() * 206 + 50));
 
     private String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}; 
@@ -27,6 +27,7 @@ public class Balloon extends JComponent
         letter = alphabet[rdmNum];
         this.x = (int) (Math.random() * (900 - 30)) + 30;
         this.y = y;
+        popped = false;
     }
 
     //Draws the Balloon
@@ -64,6 +65,16 @@ public class Balloon extends JComponent
     public int getX()
     {
         return x;
+    }
+    
+    public boolean isPopped()
+    {
+        return popped;
+    }
+    
+    public void setPopped(boolean tf)
+    {
+        popped = tf;
     }
 
     //Returns the Y Coord
