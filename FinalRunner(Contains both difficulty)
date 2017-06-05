@@ -9,7 +9,9 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 /* 
- * @author (Jason W,Michael Bagamian) 
+ * This Class runs the entire game
+ * 
+ * @author (Jason Lin,Michael Bagamian) 
  * @version (6/3/17)
  */
 public class FinalRunner
@@ -413,3 +415,4 @@ public class FinalRunner
         play2.addActionListener(new Action());
     }
 }
+
