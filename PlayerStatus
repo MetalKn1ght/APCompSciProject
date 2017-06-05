@@ -1,38 +1,41 @@
-/**
- * 
- * 
- * Lashan Wijayawickrama
- * 5/15/17
+/* 
+ * @author (Jason, Lashawn) 
+ * @version (6/3/17)
  */
 public class PlayerStatus
 {
     private int health;
     private int score;
-
+    
+    //Default Constructor: Player starts with 3 health and 0 points
     public PlayerStatus()
     {
         health = 3;
         score = 0;
-
     }
-    //not implemented, but an idea
+
+    //Removes health
     public void setHealth()
     {
         health--;
     }
-    //not implemented, but an idea
+
+    //Returns health
     public int getHealth()
     {
         return health;
     }
-
+  
+    //Adds score
     public void setScore()
     {
-        score++;
+        score+=10;
     }
 
+    //Returns score
     public int getScore()
     {
         return score;
     }    
 }
+
