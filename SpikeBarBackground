@@ -1,38 +1,21 @@
 /**
+ * Write a description of class SpikeBarBackgroundGUI here.
+ * Paints the spikes and the bar
  * 
- * 
- * @author (Jason W) 
- * @version (6/4/17)
+ * @author (Jason, Lashawn) 
+ * @version (a version number or a date)
  */
 
-import java.awt.*;
 import javax.swing.*;
+import java.awt.*;
 
-public class SpikeBarBackground
+public class SpikeBarBackgroundGUI extends JPanel
 {
-    private int[] x= {-40, -20, 0};
-    private int[] y= {0, 25, 0};
-    private Object obj; 
-    private Object obj2;
-
-    public void draw(Graphics2D g2)
+    //Paints the bar and the spikes onto the panel
+    public void paintComponent(Graphics g)
     {
-        //Draws the Spikes
-        for(int i = 0; i < 3000; i++)
-        {
-            x[0] = x[0]+40;
-            x[1] = x[1]+40;
-            x[2] = x[2]+40;
-
-            g2.setColor(Color.black);
-
-            g2.fillPolygon(x,y,x.length);
-        }
-
-        //Draws the Bar
-        Rectangle rect = new Rectangle(0, 75, 5000, 100);
-        g2.setColor(Color.pink);
-        g2.draw(rect);
-
+        Graphics2D g2 = (Graphics2D) g;
+        SpikeBarBackground sBB = new SpikeBarBackground();
+        sBB.draw(g2);
     }
 }
